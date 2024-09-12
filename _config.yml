@@ -131,8 +131,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: Philosophy x ML # blog_name will be displayed in your blog page
-blog_description: topics range between philosophy and machine learning
+blog_name: Philosophy x AI # blog_name will be displayed in your blog page
+blog_description: topics range between philosophy, machine learning, and NLP
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
