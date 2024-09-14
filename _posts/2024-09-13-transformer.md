@@ -121,3 +121,5 @@ Sutskever, I., Vinyals, O., und Le, Q. V. (2014). Sequence to sequence learning 
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L. u., und Polosukhin, I. (2017). Attention is All you Need. In Guyon, I., Luxburg, U. V., Bengio, S., Wallach, H., Fergus, R., Vishwanathan, S., und Garnett, R., Herausgeber, *Advances in Neural Information Processing Systems*, Band 30. Curran Associates, Inc.
 
 Zellers, R., Bisk, Y., Schwartz, R., und Choi, Y. (2018). SWAG: A Large-Scale Ad- versarial Dataset for Grounded Commonsense Inference. In Riloff, E., Chiang, D., Hockenmaier, J., und Tsujii, J., Herausgeber, *Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing*, Seiten 93–104, Brussels, Bel- gium. Association for Computational Linguistics.
+
+**Version 0.1**
