@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I'm attending the Conference on the Ethics of Conversational Agents & Generative AI, hosted by the [Munich Center for Machine Learning](https://mcml.ai/).
+👀 I'm attending the Conference on the Ethics of Conversational Agents & Generative AI, hosted by the [Munich Center for Machine Learning](https://mcml.ai/).
