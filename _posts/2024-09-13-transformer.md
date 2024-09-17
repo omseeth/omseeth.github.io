@@ -65,7 +65,7 @@ wobei $$a_{it}$$ eine Normalisierung (ähnlich der *Softmax*-Funktion) für das 
 
 Die Transformerarchitektur (Vaswani et al., 2017) führt einige der zuvor genannten Elemente zusammen. Die Architektur verleiht dabei dem Aufmerksamkeitsmechanismus eine wesentlich größere Rolle und verzichtet auf rekurrente Strukturen.
 
-Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Komponenten, durch die die eingehenden Informationen verarbeitet werden (vgl. **Fig. 4**). Eingaben werden als erstes einer Schicht mit einem Selbstaufmerksamkeitsmechanismus parallel zugeführt, der in Vaswani et al. (2017) vorgestellt wird. Nachdem dieser Mechanismus angewendet wurde, werden die Informationen normalisiert und daraufhin einer weiteren Schicht mit einem *feedforward* neuronalen Netz übergeben. Die Verarbeitung der Eingaben findet auf dieser Schicht wiederum einzeln statt.
+Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Komponenten, durch die die eingehenden Informationen verarbeitet werden (vgl. **Fig. 4**). Eingaben werden als erstes einer Schicht mit einem Selbstaufmerksamkeitsmechanismus parallel zugeführt, der in Vaswani et al. (2017) vorgestellt wird. Nachdem dieser Mechanismus angewendet wurde, werden die Informationen normalisiert und daraufhin einer weiteren Schicht mit einem *feedforward* neuronalen Netz übergeben. Die Verarbeitung der Eingaben findet auf dieser Schicht wiederum einzeln statt. Für den Zwischenschritt der Normalisierung werden Mittelwerte und Standardabweichungen nach dem Prinzip der *Layer Normalization* berechnet (Ba et al. 2016).
 
 {% include figure.liquid loading="eager" path="assets/img/transformer_enkodierer.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig 4:** Enkodierer eines Transformer-Modells
 
@@ -104,6 +104,8 @@ Für BERT trainieren Devlin et al. (2019)  zunächst den Enkodierer eines Transf
 In einem weiteren Schritt nutzen Devlin et al. (2019) ihr vortrainiertes BERT-Modell für weitere Experimente aus der natürlichen Sprachverarbeitung. Dafür feintunen sie BERT beispielsweise, um die plausibelste Wortfolge für Sätze aus dem Datensatz *Situations With Adversarial Generations* (Zellers et al., 2018) vorherzusagen. Da BERT ursprünglich vor dem Hintergrund bestimmter Aufgaben trainiert wurde, die Gewichte des Modells jedoch auch für neue Aufgaben verwendet und angepasst werden können, kann eine solche Verwendung BERTs auch als eine Form des Transferlernens bezeichnet werden.
 
 ## Bibliographie
+
+Ba, J., Kiros, J.R., & Hinton, G.E. (2016). Layer Normalization. ArXiv, abs/1607.06450.
 
 Bahdanau, D., Cho, K., und Bengio, Y. (2014). Neural Machine Translation by Jointly
 Learning to Align and Translate. *CoRR*, abs/1409.0473.
