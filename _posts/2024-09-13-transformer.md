@@ -79,21 +79,27 @@ Im Gegensatz zu dem Aufmerksamkeitsmechanismus nach Bahdanau et al. (2014) entwi
 \begin{equation}
     z_{i} = \sum_{j=1}^{T}a_{ij}x^{j}
 \end{equation}
-wobei $$a_{ij}$$ nicht mit einem Status $$h^{t}$$, sondern mit den Eingaben $$x^{j}$$ multipliziert wird, mit $$j\in{\{1...T\}}$$ einer Eingabesequenz der Länge $$T$$. Im Unterschied zu Bahdanau et al. (2014) ist $$a$$ dabei keine (*softmax*) Normalisierung von einfachen *feedforward* Netzen $$e_{ij}$$, sondern eine Normalisierung über die Skalarprodukte $$\Omega$$ der Eingabe $$x^{i}$$ bezogen auf alle anderen Eingaben $$x^{1}...x^{T}$$ (Raschka et al., 2022):
+wobei $$a_{ij}$$ nicht mit einem Status $$h^{t}$$, sondern mit den Eingaben $$x^{j}$$ multipliziert wird, mit $$j\in{\{1...T\}}$$ einer Eingabesequenz der Länge $$T$$ (vgl. die Summer über alle $$x^{j}$$ in (5)). Im Unterschied zu Bahdanau et al. (2014) ist $$a$$ dabei keine Normalisierung von einfachen *feedforward* Netzen $$e_{ij}$$, sondern eine *Softmax*-Normalisierung über die Skalarprodukte $$\Omega$$ der Eingabe $$x^{i}$$ bezogen auf alle anderen Eingaben $$x^{1}...x^{T}$$ (Raschka et al., 2022):
 \begin{equation}
-    a_{ij} = \frac{\exp(\omega_{ij})}{\sum_{j=1}^{T}\exp(\omega_{ik})}
+    a_{ij} = \frac{\exp(\omega_{ij})}{\sum_{j=1}^{T}\exp(\omega_{ij})}
 \end{equation}
 mit (Raschka et al., 2022):
 \begin{equation}
     \omega_{ij} = x^{(i)T}x^{j}
 \end{equation}
+Was wir hier gleichzeitig im Unterschied zum Aufmerksamkeitsmechanismus von Bahdanau et al. (2014) sehen, bei welchem die Aufmerksamkeit insbesondere die Ausgabe des Dekodierers (dort an Ausgabeposition *i*) mit einbezieht, ist, dass das Aufmerksamkeitsgewicht in (6) mit (7) sich auf die anderen Eingaben einer Sequenz bezieht. Eben aus diesem Grund ist es sinnvoll, von einer *Selbstaufmerksamkeit* zu sprechen. 
 
-Zu dieser Darstellung der Aufmerksamkeit fügen Vaswani et al. (2017) eine weitere Veränderung für jede Eingabe $$x^{i}$$ hinzu, und zwar wird das Gewicht $$a$$ nicht mit $$x^{j}$$ multipliziert, sondern mit einem Wert $$v^{j}$$. Denn Vaswani et al. (2017) überführen jedes $$x$$ in ein Tripel aus ($$q^{i}$$, $$k^{i}$$, $$v^{i}$$) mittels den Projektionsmatrizen ($$U_{q}$$, $$U_{k}$$, $$U_{v}$$). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Abfrage-, Schlüssel-, Werttripeln arbeitet. Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden deshalb in Vaswani et al. (2017) auch nicht mit (7) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
+Zu dieser Darstellung der Aufmerksamkeit fügen Vaswani et al. (2017) eine weitere Veränderung für jede Eingabe $$x^{i}$$ hinzu, und zwar wird das Gewicht $$a$$ nicht mit $$x^{j}$$ multipliziert, sondern mit einem Wert $$v^{j}$$: 
+\begin{equation}
+    z_{i} = \sum_{j=1}^{T}a_{ij}v^{j}
+\end{equation}
+Denn Vaswani et al. (2017) überführen jedes $$x$$ in ein Tripel aus ($$q^{i}$$, $$k^{i}$$, $$v^{i}$$) mittels den Projektionsmatrizen ($$U_{q}$$, $$U_{k}$$, $$U_{v}$$). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Abfrage-, Schlüssel-, Werttripeln arbeitet. Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden deshalb in Vaswani et al. (2017) auch nicht mit (7) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
 \begin{equation}
     \omega_{ij} = q^{(i)T}k^{j}
 \end{equation}
+Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Eingaben innerhalb einer Sequenz $$X$$ wird die Selbstaufmerksamkeit noch durch verschiedene Darstellungen aller umliegenden $$x^j \in X$$ in Form ihrer Abfrage-, Schlüssel-, Wertrepräsentationen berechnet.
 
-Der Selbstaufmerksamkeitsmechanismus wird abschließend mit der Dimension der Eingabe noch und $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkatiniert abschließend den *feedforward* neuronalen Netzen in den Kodierern weitergereicht werden. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte die für die Normalisierung genutzte *softmax* Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
+Die Selbstaufmerksamkeitsgewichte werden abschließend mit der Dimension der Eingabe noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkatiniert abschließend den *feedforward* neuronalen Netzen in den Kodierern weitergereicht werden. Dieses Vorgehen kann auch als '*Multi-head Attention*' bezeichnet werden. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (9)) die für die Normalisierung genutzte *softmax* Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
 
 ## **1.4** Transferlernen via BERT
 
