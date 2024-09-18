@@ -101,7 +101,7 @@ Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Ei
 
 {% include figure.liquid loading="eager" path="assets/img/projection_matrices.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig 5:** Selbstaufmerksamkeit für eine Eingabe X mit mehreren Köpfen (*heads*)
 
-Die Selbstaufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend den *feedforward* neuronalen Netzen in den Kodierern weitergereicht werden. Dieses Vorgehen kann auch als '*Multi-head Attention*' bezeichnet werden. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (9)) die für die Normalisierung genutzte *softmax* Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
+Die Selbstaufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 5** und **Fig. 4**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (9)) die für die Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
 
 ## **1.4** Transferlernen via BERT
 
@@ -140,4 +140,4 @@ Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Ka
 
 Zellers, R., Bisk, Y., Schwartz, R., und Choi, Y. (2018). SWAG: A Large-Scale Ad- versarial Dataset for Grounded Commonsense Inference. In Riloff, E., Chiang, D., Hockenmaier, J., und Tsujii, J., Herausgeber, *Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing*, Seiten 93–104, Brussels, Bel- gium. Association for Computational Linguistics.
 
-**Version 0.1**
+**Version 0.2**
