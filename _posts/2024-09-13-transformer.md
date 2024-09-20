@@ -13,14 +13,14 @@ Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über i
 
 ## **1.1** *Feedforward* neuronale Netze
 
-Abstrakt betrachtet ist ein neuronales Netz zunächst ein Ansatz, um eine Funktion $$f(X, \theta)$$ zu approximieren, durch die mit den Parametern $$\theta$$ die Eingabewerte $$X$$ abgebildet werden können (Goodfellow et al. 2016). Als Klassifikator würde ein Netz zum Beispiel mit den richtigen Parametern $$f(x)=y$$ vorhersagen, wobei $$y$$ einem Klassenlabel entspricht (Goodfellow et al. 2016).
+Abstrakt betrachtet ist ein neuronales Netz zunächst ein Ansatz, um eine Funktion $$f(X; \theta)$$ zu approximieren, durch die mit den Parametern $$\theta$$ die Eingabewerte $$X$$ abgebildet werden können (Goodfellow et al. 2016). Als Klassifikator würde ein Netz zum Beispiel mit den richtigen Parametern $$f(x)=y$$ vorhersagen, wobei $$y$$ einem Klassenlabel entspricht (Goodfellow et al. 2016).
 
 Neuronale Netze bestehen aus einer Mehrzahl von verknüpften Funktionen, die mit Hilfe eines gerichteten kreisfreien Graphen eine Eingabe bis zur Ausgabe verarbeiten. Die jeweiligen Funktionen können auch als Schichten (*layers*) $$h_{i}$$ mit $$i \in N$$ und $$N$$ als entsprechende Tiefe des Netzes bezeichnet werden. Die letzte Schicht wird als Ausgabeschicht $$a$$ bezeichnet. Anstatt dass man jede Funktion einer Schicht als eine Abbildung eines Vektor auf einen Vektor betrachtet, sollte man die Funktionen eher als weitere Kompositionen von Einheiten verstehen, die parallel Vektoren auf Skalare abbilden (Goodfellow et al. 2016). Für diese Abbildungen werden nicht-lineare Aktivierungsfunktionen genutzt. Ein neuronales Netz wird als *feedforward* bezeichnet, wenn von der Eingabe bis zur Ausgabe des Informationsflusses keine Form von Feedback berücksichtigt wird (Goodfellow et al. 2016). 
 
 Die Approximation der Parameter $$\theta$$ folgt dem typischen Schema des maschinellen Lernens aus drei Schritten für jede Trainingsinstanz.
 
 
-1. Für $$x \in X$$ sagt das Netz einen Wert $$\hat{y}$$ vorher.
+1. Für $$x \in X$$ sagt das Netz einen Wert $$y$$ vorher.
 2.  Dieser Wert wird mit einer weiteren Funktion, einer Kostenfunktion, 'bewertet'. Die Kosten geben eine Information darüber ab, inwieweit sich die Vorhersage des Netzes von einem Soll-Wert unterscheidet (typische Kostenfunktionen sind z.B. *Mean Squared Error* oder *Binary Cross Entropy*). Durch den Einbezug eines Soll-Wertes kann hier auch vom überwachten Lernen gesprochen werden.
 3. Um zukünftige Kosten zu senken, werden mit einem Optimierungsalgorithmus alle Parameter des Netzes mit Hinblick auf die Kostenfunktion angepasst. Dieser Algorithmus versucht die Kostenfunktion zu minimieren, indem das globale Minimum der Funktion unter Rückgriff der Parameters des Modells für eine Eingabe angenähert wird. Der letzte Schritt involviert in den klassischen Verfahren das Berechnen der Gradienten der Parameter, mit denen das Modell für die nächste Lernrunde entsprechend der Steigung verändert werden kann (z.B. mit dem *Gradient-Descent*-Algorithmus). In einem mehrschichtigen neuronalen Netz müssen dafür partielle Ableitungen für alle Parameter der verketteten Funktionen gefunden werden. Die Berechnung kann mit dem *Backpropagation*-Verfahren durchgeführt werden, das rekursiv die Kettenregel innerhalb eines Berechnungsgraphen ausführt und so die Ableitungen aller Gradienten findet.
 
@@ -32,9 +32,27 @@ Im Unterschied zu den *feedforward* Netzen werden bei rekurrenten neuronalen Net
 
 Der Vorteil rekurrenter neuronaler Netze wie dem *Long Short-Term Memory*-Modell (kurz LSTM Hochreiter und Schmidhuber, 1997) liegt darin, insbesondere sequenzielle Daten wie zum Beispiel Sprache sehr gut modellieren zu können. Wie man mit Ferdinand de Saussure inspiriert pointieren kann: Die Bedeutung eines Wortes leitet sich aus dem Zusammenspiel der Differenzen der umliegenden Wörter ab (de Saussure, 1931). So kann auch ein neuronales Netz wenig Sinn aus einer isolierten Betrachtung eines jeden Wortes ableiten. Werden hingegen die Bedeutungen der umliegenden Worteingaben mit in einer Schicht eines rekurrenten Netzes einbezogen, das heißt insgesamt eine Sequenz, können dadurch komplexere Zusammenhänge abgebildet werden.
 
-Mit LSTM-Modellen entwickeln Sutskever et al. (2014) eine Sequenz-zu-Sequenz-Architektur zur maschinellen Übersetzung. Übersetzungen können nicht immer wortwörtlich vollzogen werden. Aus diesem Grund ist es sinnvoll, dass ein Modell einen ganzen Satz berücksichtigt, bevor es eine potentielle Übersetzung vorhersagt. Diese Idee realisieren Sutskever et al. (2014), indem sie eine Architektur aus zwei Teilen, einem Enkodierer und einem Dekodierer (siehe **Fig. 2**), entwickeln (vgl. auch Cho et al. 2014).
+Mit diesen Werkzeugen können wir bereits ein einfaches Sprachmodell zur Vorhersage von Sequenzen entwickeln. Angenommen wir wollen ein Modell, das eine Sequenz $$w$$ mit $$w=(w_{1}, w_{2}, w_{3}, ..., w_{n})$$ generiert, wobei $$n$$ der Länge der Wörter entspricht, die zu der Sequenz, zum Beispiel einem Satz, gehören. Ein viel genutzter Ansatz in der natürlichen Sprachverarbeitung ist, die Vorhersage jedes Wortes durch alle vorangegangen Wörter der Sequenz abzuleiten. Diese Idee können wir mit der Kettenregel für Wahrscheinlichkeiten wie folgt darstellen:
+\begin{equation}
+    p(w) = p(w_{1}) \cdot p(w_{2}|w_{1}) \cdot p(w_{3}|w_{1}, w_{2}) \cdot ... \cdot p(w_{n}|w_{1}, ..., w_{n-1})
+\end{equation}
+An dieser Stelle ist es bereits sinnvoll, nachzuvollziehen, dass wir hier eine auto-regressive Vorhersage der Sequenz verfolgen, bei der jedes Wort als abhängig von allen vorherigen Wörtern behandelt wird.
 
-{% include figure.liquid loading="eager" path="assets/img/seq2seq.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
+Auf das maschinelle Lernen anhand der Daten $$w$$ übertragen folgt aus der hier vorgeschlagenen Sprachmodellierung, dass wir folgende Funktion approximieren wollen:
+\begin{equation}
+    p(w; \theta)
+\end{equation}
+d.h. wir suchen die besten Parameter $$\theta$$ für unser Modell, mit denen wir die Vorhersage für eine Sequenz von Wörtern $$w$$ erreichen können. Die Approximation können wir durch ein Training sowohl mit einem einfachen *feedforward* neuronalen Netz als auch einem rekurrenten realisieren. Das rekurrente hat den Vorteil, dass es mit der Weiterreichung von Informationen durch die Status innerhalb jeder seiner Schichten besser die vorangegangenen Wörter mit einbezieht.
+
+Mit LSTM-Modellen entwickeln Sutskever et al. (2014) eine Sequenz-zu-Sequenz-Architektur zur maschinellen Übersetzung. Hier kommen zwei Ideen zusammen. Zum einen (a) soll eine Übersetzung durch die Urpsungssprache bedingt werden, d.h. ein übersetzter Satz $$A$$ (Ausgabe) hängt von seinem Ursprungssatz $$E$$ (Eingabe) ab. Zum anderen (b) können Übersetzungen nicht immer wortwörtlich vollzogen werden. Aus diesem Grund ist es sinnvoll, dass ein Modell den ganzen Ursprungssatz berücksichtigt, bevor es eine potentielle Übersetzung vorhersagt. 
+
+Die erste Idee (a) führt zu den *bedingten* Sprachmodellen:
+\begin{equation}
+    p(w | c; \theta)
+\end{equation}
+Die Vorhersage der Wortsequenz hängt nicht nur von jedem vorangegangen Wort ab, sondern wird auch durch den Ursprungssatz $$c$$ bedingt.
+
+Die zweite Idee realisieren Sutskever et al. (2014), indem sie eine Architektur aus zwei Teilen, einem Enkodierer und einem Dekodierer (siehe **Fig. 2**), entwickeln (vgl. auch Cho et al. 2014). Wobei der Enkodierer den Ursprungssatz in eine feste Repräsentation $$c$$ zusammenfasst und dann diese dem Dekodierer zum Vorhersagen der Übersetzung in der Zielsprache übergibt.
 
 Der Enkodierer besteht aus einem LSTM-Modell, dem Vektorrepräsentationen (auch *Embeddings* genannt) für die Wörter einer Eingabesequenz aus der Ursprungssprache zugeführt werden. Es werden *Embeddings* aus dem einfachen Grund verwendet, da neuronale Netze nur mit Zahlen und nicht mit Buchstaben operieren können. Die verborgenen Status dieser Eingaben werden daraufhin durch das Modell zu einem finalen Zustand $$c$$ zusammengeführt.
 \begin{equation}
@@ -42,9 +60,11 @@ Der Enkodierer besteht aus einem LSTM-Modell, dem Vektorrepräsentationen (auch 
 \end{equation}
 wobei $$q$$ dem LSTM-Modell entspricht und $$T$$ der Länge der Eingabesequenz. Dieser Zustand wird dem Dekodierer übergeben. 
 
+{% include figure.liquid loading="eager" path="assets/img/seq2seq.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
+
 Der Dekodierer besteht auch aus einem LSTM-Modell, welches auf der Grundlage des übergebenen Zustandes Wort für Wort eine Übersetzung in der Zielsprache vorhersagt. Dabei werden jedes übersetzte Wort und der Enkodierer-Endzustand der ursprünglichen Eingabe $$c$$ regressiv dem Dekodierer so lange zugeführt, bis das Modell die Übersetzung abschließt: 
 \begin{equation}
-    p(\textbf{y})= \prod_{t=1}^{T}p(y_{t}|\{y_{1},...,y_{t-1}\},c)
+    p(w)= \prod_{t=1}^{T}p(w_{t}|\{w_{1},...,w_{t-1}\},c)
 \end{equation}
 
 Während des Trainings des Modells werden dem Enkodierer Sätze aus der Ursprungssprache und dem Dekodierer deren Übersetzungen entsprechend eines Hyperparameters (z.B. mit *Professor Forcing* (Goyal et al., 2016)) gezeigt, wodurch die Gewichte beider Kodierer zusammen gelernt werden können.
