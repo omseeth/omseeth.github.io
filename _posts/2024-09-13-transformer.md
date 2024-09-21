@@ -7,15 +7,21 @@ tags: machine learning, neural nets, feed-forward, attention-mechanism, transfor
 categories: 
 ---
 
-Um die theoretische Grundlage zum Verständnis eines BERT-Modells zu schaffen, umreiße ich in diesem Blogbeitrag einige Konzepte der Transformerarchitektur. Dazu diskutiere ich in **1.1** *feedforward* neuronale Netze. In Abschnitt **1.2** beschreibe ich rekurrente neuronale Netze mit einer Enkodierer-Dekodierer-Architektur und dem ersten Aufmerksamkeitsmechanismus. In **1.3** führe ich alle Elemente zusammen, um ein Transformer-Modell zu beschreiben. Abschließend gehe ich in **1.4** auf die Besonderheiten BERTs ein und führe das Konzept des Transferlernens ein.
+Um die theoretische Grundlage zum Verständnis eines BERT-Modells zu schaffen, umreiße ich in diesem Blogbeitrag einige Konzepte der Transformerarchitektur. Dazu diskutiere ich in **1** *feedforward* neuronale Netze. In Abschnitt **2** beschreibe ich rekurrente neuronale Netze mit einer Enkodierer-Dekodierer-Architektur und dem ersten Aufmerksamkeitsmechanismus. In **3** führe ich alle Elemente zusammen, um ein Transformer-Modell zu beschreiben. Abschließend gehe ich in **4** auf die Besonderheiten BERTs ein und führe das Konzept des Transferlernens ein.
 
-Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über ihre historische Genese erklärt werden, deshalb empfehle ich die Abschnitte **1.1** und **1.2** nachzuvollziehen, wobei das Augenmerk hier auf der Verarbeitung von Sequenzen mit einer Enkodierer-Dekodierer-Struktur liegen sollte. Zum anderen liegt den Transformer-Modellen ein 'neuer' (d.h. für das Jahr 2017 neuer) Selbstaufmerksamkeitsmechanismus zugrunde, bei welchem sich auch ein mathematisches Verständnis lohnt. Einmal mehr wird es hoffentlich für die Leserschaft nicht schwierig sein, diesen zu verstehen, sobald ein Gespür für vorangegangene Aufmerksamkeitsmechanismen da ist, wie diese z.B. in Bahdanau et al. (2014) vorgestellt werden. Nichtsdestotrotz empfehle ich die zitierten Veröffentlichungen zu lesen. Eine chronologische Lektüre ist dazu sinnvoll.
+Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über ihre historische Genese erklärt werden, deshalb empfehle ich die Abschnitte **1** und **2** nachzuvollziehen, wobei das Augenmerk hier auf der Verarbeitung von Sequenzen mit einer Enkodierer-Dekodierer-Struktur liegen sollte. Zum anderen liegt den Transformer-Modellen ein 'neuer' (d.h. für das Jahr 2017 neuer) Selbstaufmerksamkeitsmechanismus zugrunde, bei welchem sich auch ein mathematisches Verständnis lohnt. Einmal mehr wird es hoffentlich für die Leserschaft nicht schwierig sein, diesen zu verstehen, sobald ein Gespür für vorangegangene Aufmerksamkeitsmechanismen da ist. 
 
-## **1.1** *Feedforward* neuronale Netze
+Dieser Blogeintrag soll eine Hilfe sein, um Transformer-Modell zu verstehen. Nichtsdestotrotz empfehle ich die zitierten Veröffentlichungen ebenfalls zu lesen. Eine chronologische Lektüre ist dazu sinnvoll.
+
+## 1 *Feedforward* neuronale Netze
+
+#### 1.1 Definition eines neuronalen Netzes
 
 Abstrakt betrachtet ist ein neuronales Netz zunächst ein Ansatz, um eine Funktion $$f(X; \theta)$$ zu approximieren, durch die mit den Parametern $$\theta$$ die Eingabewerte $$X$$ abgebildet werden können (Goodfellow et al. 2016). Als Klassifikator würde ein Netz zum Beispiel mit den richtigen Parametern $$f(x)=y$$ vorhersagen, wobei $$y$$ einem Klassenlabel entspricht (Goodfellow et al. 2016).
 
 Neuronale Netze bestehen aus einer Mehrzahl von verknüpften Funktionen, die mit Hilfe eines gerichteten kreisfreien Graphen eine Eingabe bis zur Ausgabe verarbeiten. Die jeweiligen Funktionen können auch als Schichten (*layers*) $$h_{i}$$ mit $$i \in N$$ und $$N$$ als entsprechende Tiefe des Netzes bezeichnet werden. Die letzte Schicht wird als Ausgabeschicht $$a$$ bezeichnet. Anstatt dass man jede Funktion einer Schicht als eine Abbildung eines Vektor auf einen Vektor betrachtet, sollte man die Funktionen eher als weitere Kompositionen von Einheiten verstehen, die parallel Vektoren auf Skalare abbilden (Goodfellow et al. 2016). Für diese Abbildungen werden nicht-lineare Aktivierungsfunktionen genutzt. Ein neuronales Netz wird als *feedforward* bezeichnet, wenn von der Eingabe bis zur Ausgabe des Informationsflusses keine Form von Feedback berücksichtigt wird (Goodfellow et al. 2016). 
+
+#### 1.2 Training eines neuronalen Netzes
 
 Die Approximation der Parameter $$\theta$$ (damit sind die Gewichtungen und Biases des Netzes gemeint) folgt dem typischen Schema des maschinellen Lernens aus drei Schritten für jede Trainingsinstanz.
 
@@ -23,13 +29,17 @@ Die Approximation der Parameter $$\theta$$ (damit sind die Gewichtungen und Bias
 2.  Dieser Wert wird mit einer weiteren Funktion, einer Kostenfunktion, 'bewertet'. Die Kosten geben eine Information darüber ab, inwieweit sich die Vorhersage des Netzes von einem Soll-Wert unterscheidet (typische Kostenfunktionen sind z.B. *Mean Squared Error* oder *Binary Cross Entropy*). Durch den Einbezug eines Zielwertes (manchmal auch als *Ground Truth* bezeichnet) kann hier auch vom überwachten Lernen gesprochen werden.
 3. Um zukünftige Kosten zu senken, werden mit einem Optimierungsalgorithmus alle Parameter des Netzes mit Hinblick auf die Kostenfunktion angepasst. Dieser Algorithmus versucht die Kostenfunktion zu minimieren, indem das globale Minimum der Funktion durch Anpassung der Modellparameter in Bezug auf die Kostenfunktion für eine Eingabe angenähert wird. Der letzte Schritt involviert in den klassischen Verfahren das Berechnen der Gradienten der Parameter, mit denen das Modell für die nächste Lernrunde entsprechend der Steigung verändert werden kann (z.B. mit dem *Gradient-Descent*-Algorithmus). In einem mehrschichtigen neuronalen Netz müssen dafür partielle Ableitungen für alle Parameter der verketteten Funktionen gefunden werden. Die Berechnung kann mit dem *Backpropagation*-Verfahren durchgeführt werden, das rekursiv die Kettenregel innerhalb eines Berechnungsgraphen ausführt und so die Ableitungen aller Gradienten findet.
 
-## **1.2** Rekurrente Netze mit einer Enkodierer-Dekodierer-Architektur
+## 2 Rekurrente Netze mit einer Enkodierer-Dekodierer-Architektur
+
+#### 2.1 Definition eines rekurrenten neuronalen Netzes
 
 Im Unterschied zu den *feedforward* Netzen werden bei rekurrenten neuronalen Netzen Informationen innerhalb einer Schicht mit den Zuständen $$h_{i}^{t}$$ (auch *hidden states* bzw. verborgene Zustände genannt) ausgetauscht. Jeder Zustand zum Zeitpunkt $$t$$ erhält nicht nur Informationen aus der Eingabe, sondern auch aus den Zuständen $$t-1$$, also aus $$h_{i}^{t-1}$$ (vgl. **Fig. 1**). Die Rekurrenz kann dabei prinzipiell ebenfalls von der Ausgabe zu jeder Zwischenschicht oder nur bei jeder Ausgabe vorgenommen werden.
 
 {% include figure.liquid loading="eager" path="assets/img/rnn.png" class="img-fluid mx-auto d-block" width="40%" %}**Fig. 1:** Status eines neuronalen Netzes ohne (*feedforward*) und mit Feed-back (rekurrent) sowie jeweils einer Eingabeschicht $$x$$, einer verborgenen Schicht $$h1$$ und einer Ausgabe $$a$$
 
 Der Vorteil rekurrenter neuronaler Netze wie dem *Long Short-Term Memory*-Modell (kurz LSTM Hochreiter und Schmidhuber, 1997) liegt darin, insbesondere sequenzielle Daten wie zum Beispiel Sprache sehr gut modellieren zu können. Wie man mit Ferdinand de Saussure inspiriert pointieren kann: Die Bedeutung eines Wortes leitet sich aus dem Zusammenspiel der Differenzen der umliegenden Wörter ab (de Saussure, 1931). So kann auch ein neuronales Netz wenig Sinn aus einer isolierten Betrachtung eines jeden Wortes ableiten. Werden hingegen die Bedeutungen der umliegenden Worteingaben mit in einer Schicht eines rekurrenten Netzes einbezogen, das heißt insgesamt eine Sequenz, können dadurch komplexere Zusammenhänge abgebildet werden.
+
+#### 2.2 Ein auto-regressives Sprachmodell
 
 Mit diesen Werkzeugen können wir bereits ein einfaches Sprachmodell zur Vorhersage von Sequenzen entwickeln. Angenommen wir wollen ein Modell, das eine Sequenz $$w$$ mit $$w=(w_{1}, w_{2}, w_{3}, ..., w_{n})$$ generiert, wobei $$n$$ der Länge der Wörter entspricht, die zu der Sequenz, zum Beispiel einem Satz, gehören. Ein viel genutzter Ansatz in der natürlichen Sprachverarbeitung ist, die Vorhersage jedes Wortes durch alle vorangegangen Wörter der Sequenz abzuleiten. Diese Idee können wir mit der Kettenregel für Wahrscheinlichkeiten wie folgt darstellen:
 \begin{equation}
@@ -41,9 +51,11 @@ Auf das maschinelle Lernen anhand der Daten $$w$$ übertragen folgt aus der vorg
 \begin{equation}
     p(w; \theta)
 \end{equation}
-d.h. wir suchen die besten Parameter $$\theta$$ für unser Modell, mit denen wir die Vorhersage für eine Sequenz von Wörtern $$w$$ erreichen können. Die Approximation können wir durch ein Training sowohl mit einem einfachen *feedforward* neuronalen Netz als auch einem rekurrenten realisieren. Das rekurrente hat den Vorteil, dass es mit der Weiterreichung von Informationen durch die Status innerhalb jeder seiner Schichten besser die vorangegangenen Wörter mit einbezieht.
+d.h. wir suchen die besten Parameter $$\theta$$ mit vielen Sprachdaten (auch Korpora genannt) für unser Modell, mit denen wir eine Vorhersage für eine Sequenz von Wörtern $$w$$ erreichen können, die den genutzten Daten entspricht. Die Approximation können wir durch ein Training sowohl mit einem einfachen *feedforward* neuronalen Netz als auch einem rekurrenten realisieren. Das rekurrente hat den Vorteil, dass es mit der Weiterreichung von Informationen durch die Status innerhalb jeder seiner Schichten besser die vorangegangenen Wörter mit einbezieht.
 
-Mit den rekurrenten LSTM-Modellen entwickeln Sutskever et al. (2014) eine Sequenz-zu-Sequenz-Architektur zur maschinellen Übersetzung. Bei ihrem Ansatz kommen zwei wichtige Ideen zusammen. Zum einen (a) soll eine Übersetzung durch die Ursprungssprache bedingt werden, d.h. ein übersetzter Satz $$A$$ (Ausgabe) hängt von seinem Ursprungssatz $$E$$ (Eingabe) ab. Zum anderen (b) können Übersetzungen nicht immer wortwörtlich vollzogen werden. Aus diesem Grund ist es sinnvoll, dass ein Modell den ganzen Ursprungssatz berücksichtigt, bevor es eine potentielle Übersetzung vorhersagt. 
+#### 2.3 Enkodierer-Dekodierer-Modelle zur maschinellen Übersetzung
+
+Mit LSTM-Modellen entwickeln Sutskever et al. (2014) eine Sequenz-zu-Sequenz-Architektur zur maschinellen Übersetzung. Bei ihrem Ansatz kommen zwei wichtige Ideen zusammen. Zum einen (a) soll eine Übersetzung durch die Ursprungssprache bedingt werden, d.h. ein übersetzter Satz $$A$$ (Ausgabe) hängt von seinem Ursprungssatz $$E$$ (Eingabe) ab. Zum anderen (b) können Übersetzungen nicht immer wortwörtlich vollzogen werden. Aus diesem Grund ist es sinnvoll, dass ein Modell den ganzen Ursprungssatz berücksichtigt, bevor es eine potentielle Übersetzung vorhersagt. 
 
 Die erste Idee (a) führt zu den *bedingten* Sprachmodellen:
 \begin{equation}
@@ -68,6 +80,8 @@ Der Dekodierer besteht auch aus einem LSTM-Modell, welches auf der Grundlage des
 
 Während des Trainings des Modells werden dem Enkodierer Sätze aus der Ursprungssprache und dem Dekodierer deren Übersetzungen entsprechend eines Hyperparameters (z.B. mit *Professor Forcing* (Goyal et al., 2016)) gezeigt, wodurch die Gewichte $$\theta$$ beider Kodierer zusammen gelernt werden können.
 
+#### 2.4 Der erste Aufmerksamkeitsmechanismus
+
 Um die Qualität der Übersetzungen, insbesondere für lange Sequenzen, zu verbessern, führen  Bahdanau et al. (2014) einen Aufmerksamkeitsmechanismus ein. Die Schwäche der Architektur nach Sutskever et al. (2014) liegt darin, dass die zu übersetzende Eingabe in eine einzige Repräsentation $$c$$ gezwängt wird, mit welcher der Dekodierer eine Übersetzung finden muss. Allerdings spielen für eine Übersetzung nicht alle Wörter eines Satzes eine gleich große Rolle und auch kann die Beziehung unter den Wörtern variieren. Ob der Artikel in 'the annoying man' für 'l'homme ennuyeux' mit 'le' oder 'l´' übersetzt wird, hängt im Französischen beispielsweise davon ab, ob auf den Artikel ein Vokal folgt, gegebenenfalls mit einem stummen 'h' davor (Bahdanau et al. 2014). Bahdanau et al. (2014) entwickeln deshalb einen Mechanismus, der diesen Nuancen besser gerecht wird (vgl. **Fig. 3**).
 
 {% include figure.liquid loading="eager" path="assets/img/attention_seq.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 3:** Aufmerksamkeitsgewichte für eine Eingabe mit Bezug auf die Ausgabe an der Position *i=2*
@@ -82,7 +96,9 @@ Das Gewicht $$a_{it}$$ für jeden Zustand $$h^{t}$$ (in (Bahdanau et al. 2014) a
 \end{equation}
 wobei $$a_{it}$$ eine Normalisierung (ähnlich der *Softmax*-Funktion) für das Anpassungsmodell $$e_{it}$$ ist. Dieses Modell ist wiederum ein *Feedforward*-Netz mit einer einzelnen Schicht, das bewertet, wie gut die Eingabe zum Zeitpunkt $$t$$ mit der Ausgabe an Position $$i$$ übereinstimmt. Damit erhält insgesamt jede Eingabe $$x^{1}...x^{T}$$ eine eigene Menge an Aufmerksamkeitsgewichten, die in $$c_{i}$$ resultieren, einem Kontextvektor, der dem Dekodierer hilft für jede Eingabe die passende Ausgabe (z.B. 'l'homme') zu bestimmen.
 
-## **1.3** Transformer-Modelle mit Selbstaufmerksamkeit
+## 3 Transformer-Modelle mit Selbstaufmerksamkeit
+
+#### 3.1 Die Struktur eines Transformer-Modells
 
 Die Transformerarchitektur (Vaswani et al., 2017) führt einige der zuvor genannten Elemente zusammen. Die Architektur verleiht dabei dem Aufmerksamkeitsmechanismus eine wesentlich größere Rolle und verzichtet auf rekurrente Strukturen.
 
@@ -90,13 +106,19 @@ Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Ko
 
 {% include figure.liquid loading="eager" path="assets/img/transformer_enkodierer.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 4:** Enkodierer eines Transformer-Modells
 
+#### 3.2 *Embeddings* mit positionaler Enkodierung
+
 Wie bei den vorigen Sequenz-zu-Sequenz-Architekturen wird die Eingabe zuerst in *Embeddings* überführt. Die *Embeddings* werden aber zusätzlich mit einer Positionsenkodierung versehen, die über eine Frequenzdarstellung realisiert wird. Dies begründet sich wie folgt. Im Gegensatz zu den rekurrenten Ansätzen verarbeitet die Aufmerksamkeitsschicht eines Transformerkodierers eine Eingabesequenz auf einmal und zum Beispiel im Falle einer Übersetzung nicht Wort für Wort. Ohne eine zusätzliche Information zur Position einer jeden Eingabe innerhalb einer Sequenz würden den Kodierern die wichtige Information fehlen, wie die einzelnen Wörter aufeinander folgen.
 
 Für diese Verarbeitung hält die Transformerarchitektur eine *Embedding*-Matrix für alle Vokabeln der Daten bereit, die in das Training eines Tranformer-Modells einfließen. Die Größe der Matrix entspricht der Anzahl der Vokabeln (sonst als Tokens bezeichnet, zu denen auch bswp. Satzzeichen zählen) Kreuz einer gewählten Dimension (also Vokabelanzahl x Dimension), mit der jedem Eingabetoken genau eine Zeile innerhalb der Matrix zugeordnet werden kann. Die Werte für die Tokentypen werden während der Initialisierung eines Transformer-Modells zufällig ausgewählt. Es sind jene Zeilen, die auch als *Embeddings* bezeichnet werden. Man kann auch sagen, dass jeder Tokentyp eine Vektorrepräsentation besitzt. Wobei diese Vektoren in einem weiteren Schritt mit der positionalen Enkodierung addiert so der Eingabe eine einzigartige Darstellung verleihen. Entscheidend ist, dass die *Embeddings* der Transformerarchitektur sich im Laufe eines Trainings auch verändern, d.h. entsprechend der Daten angepasst, also 'gelernt' werden können. Zusätzlich führt die Positionsenkodierung der Tokens innerhalb jeder Eingabesequenz für eine kontextsensitive Repräsentation der verarbeiteten Tokens.
 
-{% include figure.liquid loading="eager" path="assets/img/transformer_dekodierer.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 5:** Dekodierer eines Transformer-Modells
+#### 3.3 Der Transformer-Dekodierer
 
 Der Dekodierer der Transformerarchitektur folgt strukturell dem Enkodierer mit einem Unterschied. Er enthält eine weitere Selbstaufmerksamkeitsschicht (vgl. **Fig. 5**). In dieser Schicht können Teile der Dekodierereingabe verdeckt werden (dies wird auch als *Masking* beschrieben). Wie bereits erwähnt lässt ein Transformer-Modell grundsätzlich eine Betrachtung aller Eingaben gleichzeitig zu. Für die Prädiktion zum Beispiel einer Übersetzungen muss der Dekodierer allerdings ohne die Information der Lösungen arbeiten -- die diesem im Laufe des Trainings in Teilen unmaskiert zugänglich waren. Durch das Verdecken bleiben dem Dekodierer nur die enkodierten Eingaben aus der Ursprungssprache sowie autoregressiv die bereits vorhergesagten Wörter, bis der Übersetzungsprozess terminiert.
+
+{% include figure.liquid loading="eager" path="assets/img/transformer_dekodierer.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 5:** Dekodierer eines Transformer-Modells
+
+#### 3.4 Selbstaufmerksamkeitsmechanismus
 
 Im Gegensatz zu dem Aufmerksamkeitsmechanismus nach Bahdanau et al. (2014) entwickeln Vaswani et al. (2017) einen Selbstaufmerksamkeitsmechanismus, den sie auch als 'skalierte Skalarprodukt-Aufmerksamkeit' beschreiben (Vaswani et al., 2017, S.3). Die für Transformer genutzte Selbstaufmerksamkeit kann vereinfacht zunächst mit der Operation aus (6) verglichen werden (Raschka et al., 2022). Wir können für einen kontextsensitiven Vektor $$z_{i}$$ einer Eingabe an der Stelle $$i$$ die Aufmerksamkeit wie folgt berechnen (Raschka et al., 2022):
 \begin{equation}
@@ -126,13 +148,19 @@ Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Ei
 
 Die Selbstaufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 6** und **Fig. 4**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (12)) die für die Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
 
-## **1.4** Transferlernen via BERT
+## 4 Transferlernen via BERT
 
 Derweil die ursprüngliche Transformerarchitektur zur maschinellen Übersetzung entwickelt wurde, haben sich Transformer-Modelle bei anderen Aufgaben ebenfalls bewährt. Am bekanntesten sind große Sprachmodelle wie *Generative Pre-trained Transformer*-Modelle  (Radford et al., 2018) von OpenAI, die unter der Bedingung einer Eingabe mit einem Transformer-Dekodierer den nächsten *Token* einer Sequenz vorhersagen. Das *Bidirectional Encoder Representations from Transformers*-Modell (kurz BERT, Devlin et al., 2019) ist wiederum ein Transformer-Enkodierer. Das heißt mit BERT können keine neuen Wörter oder Sätze in einer Zielsprache *autoregressiv* generiert werden. BERT stellt dafür Enkodierungen bereit, mit deren Hilfe sich zum Beispiel Klassifikationsaufgaben lösen lassen.
+
+#### 4.1 Das *Bidirectional Encoder Representations from Transformers*-Modell
 
 Für BERT trainieren Devlin et al. (2019)  zunächst den Enkodierer eines Transformer-Modells vor dem Hintergrund zweier Aufgaben. Die erste Aufgabe des BERT-Trainings besteht aus einer maskierten Sprachmodellierung (*Masked Language Modelling*). Das Modell bekommt dabei Sätze gezeigt, bei denen es 15% zufällig ausgewählte Wörter, die verdeckt werden, vorhersagen muss. Die zweite Aufgabe besteht aus einer binären Klassifikation zweier Sätze und zwar mit dem Ziel vorherzusagen, ob diese aufeinander folgen oder nicht. Wobei das Modell 50% korrekte Satzfolgen und 50% inkorrekte Folgen gezeigt bekommt. Da das Modell ausschließlich einen Enkodierer verwendet und keine 'rechtsbündige' Maskierung der jeweils nächsten Tokens innerhalb einer Sequenz wie bei einem Transformer-Dekodierer vorgenommen wird, kann das Training auch als bi-direktional bezeichnet werden. Devlin et al. (2019) nennen das Training ihres Enkodierers auf den beiden Aufgaben außerdem als 'Vortraining'.
 
 In einem weiteren Schritt nutzen Devlin et al. (2019) ihr vortrainiertes BERT-Modell für weitere Experimente aus der natürlichen Sprachverarbeitung. Dafür feintunen sie BERT beispielsweise, um die plausibelste Wortfolge für Sätze aus dem Datensatz *Situations With Adversarial Generations* (Zellers et al., 2018) vorherzusagen. Da BERT ursprünglich vor dem Hintergrund bestimmter Aufgaben trainiert wurde, die Gewichte des Modells jedoch auch für neue Aufgaben verwendet und angepasst werden können, kann eine solche Verwendung BERTs auch als eine Form des Transferlernens bezeichnet werden.
+
+## Zusätzliche Ressourcen
+
+* Ich kann folgende Visualisierung von Transformer-Modellen von Brendan Bycroft empfehlen: [https://bbycroft.net/llm](https://bbycroft.net/llm)
 
 ## Bibliographie
 
