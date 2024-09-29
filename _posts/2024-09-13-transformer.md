@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Transformer-Modelle wie BERT erklärt (German version)
+title: Transformer-Modelle wie GPT und BERT erklärt (German version)
 date: 2024-09-13 16:40:16
-description: Vom neuronalen Netz bis zu BERT, eine kontextualisierte Erklärung der Transformer-Architektur
-tags: machine learning, neural nets, feed-forward, attention-mechanism, transformer, BERT, transfer-learning, German
+description: Vom neuronalen Netz bis zu GPT und BERT, eine kontextualisierte Erklärung der Transformer-Architektur
+tags: machine learning, neural nets, feed-forward, attention-mechanism, transformer, GPT, BERT, transfer-learning, German
 categories: 
 ---
 
-Um die theoretische Grundlage zum Verständnis eines BERT-Modells zu schaffen, umreiße ich in diesem Blogbeitrag einige Konzepte der Transformerarchitektur. Dazu diskutiere ich in **1** *feedforward* neuronale Netze. In Abschnitt **2** beschreibe ich rekurrente neuronale Netze mit einer Enkodierer-Dekodierer-Architektur und dem ersten Aufmerksamkeitsmechanismus. In **3** führe ich alle Elemente zusammen, um ein Transformer-Modell zu beschreiben. Abschließend gehe ich in **4** auf die Besonderheiten BERTs ein und führe das Konzept des Transferlernens ein.
+Um die theoretische Grundlage zum Verständnis eines BERT-Modells zu schaffen, umreiße ich in diesem Blogbeitrag einige Konzepte der Transformerarchitektur. Dazu diskutiere ich in **1** *feedforward* neuronale Netze. In Abschnitt **2** beschreibe ich rekurrente neuronale Netze mit einer Enkodierer-Dekodierer-Architektur und dem ersten Aufmerksamkeitsmechanismus. In **3** führe ich alle Elemente zusammen, um ein Transformer-Modell zu beschreiben. Abschließend gehe ich in **4** auf die Besonderheiten der GPT-Modelle und BERTs ein und führe das Konzept des Transferlernens ein.
 
 Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über ihre historische Genese erklärt werden, deshalb empfehle ich die Abschnitte **1** und **2** nachzuvollziehen, wobei das Augenmerk hier auf der Verarbeitung von Sequenzen mit einer Enkodierer-Dekodierer-Struktur liegen sollte. Zum anderen liegt den Transformer-Modellen ein 'neuer' (d.h. für das Jahr 2017 neuer) Selbstaufmerksamkeitsmechanismus zugrunde, bei welchem sich auch ein mathematisches Verständnis lohnt. Einmal mehr wird es hoffentlich für die Leserschaft nicht schwierig sein, diesen zu verstehen, sobald ein Gespür für vorangegangene Aufmerksamkeitsmechanismen da ist. 
 
@@ -71,7 +71,7 @@ Für den Enkodierer nutzen Sutskever et al. (2014) ein LSTM-Modell, dem Vektorre
 \end{equation}
 wobei $$q$$ dem LSTM-Modell entspricht und $$T$$ der Länge der Eingabesequenz. Dieser Zustand $$c$$ wird dem Dekodierer übergeben. 
 
-{% include figure.liquid loading="eager" path="assets/img/seq2seq.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
+{% include figure.liquid loading="eager" path="assets/img/seq2seq_ger.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
 
 Der Dekodierer besteht auch aus einem LSTM-Modell, welches auf der Grundlage des übergebenen Zustandes Wort für Wort eine Übersetzung in der Zielsprache vorhersagt. Dabei werden jedes übersetzte Wort und der Enkodierer-Endzustand der ursprünglichen Eingabe $$c$$ regressiv dem Dekodierer so lange zugeführt, bis das Modell die Übersetzung abschließt: 
 \begin{equation}
@@ -105,13 +105,13 @@ Die Transformerarchitektur (Vaswani et al., 2017) führt einige der zuvor genann
 
 Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Komponenten, durch die die eingehenden Informationen verarbeitet werden (vgl. **Fig. 4**). Eingaben werden als erstes einer Schicht mit einem Selbstaufmerksamkeitsmechanismus parallel zugeführt, der in Vaswani et al. (2017) vorgestellt wird. Nachdem dieser Mechanismus angewendet wurde, werden die Informationen normalisiert und daraufhin einer weiteren Schicht mit einem *feedforward* neuronalen Netz übergeben. Die Verarbeitung der Eingaben findet auf dieser Schicht wiederum einzeln statt. Für den Zwischenschritt der Normalisierung werden Mittelwerte und Standardabweichungen nach dem Prinzip der *Layer Normalization* berechnet (Ba et al. 2016). Zusätzlich wird die normalisierte Ausgabe mit der Eingabe der vorangegangenen Schicht addiert. Dies wird auch als '*Residual Connection*' bezeichnet und ist eine Methode, um dem Problem verschwindender Gradienten während der *Backpropagation* etwas entgegenzuwirken.
 
-{% include figure.liquid loading="eager" path="assets/img/transformer_enkodierer.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 4:** Enkodierer eines Transformer-Modells
+{% include figure.liquid loading="eager" path="assets/img/transformer_encoder_ger.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 4:** Enkodierer eines Transformer-Modells
 
 #### 3.2 *Embeddings* mit positionaler Enkodierung
 
 Wie bei den vorigen Sequenz-zu-Sequenz-Architekturen wird die Eingabe zuerst in *Embeddings* überführt. Die *Embeddings* werden aber zusätzlich mit einer Positionsenkodierung versehen, die über eine Frequenzdarstellung (Sinus- und Kosinusfunktionen) realisiert wird. Dies begründet sich wie folgt. Im Gegensatz zu den rekurrenten Ansätzen verarbeitet die Aufmerksamkeitsschicht eines Transformerkodierers eine Eingabesequenz auf einmal und zum Beispiel im Falle einer Übersetzung nicht Wort für Wort. Ohne eine zusätzliche Information zur Position einer jeden Eingabe innerhalb einer Sequenz würden den Kodierern die wichtige Information fehlen, wie die einzelnen Wörter aufeinander folgen.
 
-{% include figure.liquid loading="eager" path="assets/img/embeddings.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 5:** Beispielsequenz, deren Tokens in Embeddings mit $$d=4$$ überführt werden
+{% include figure.liquid loading="eager" path="assets/img/embeddings.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 5:** Beispielsequenz, deren Tokens in Embeddings mit $$d=4$$ überführt werden
 
 Für die Verarbeitung der Eingabe hält die Transformerarchitektur eine *Embedding*-Matrix für alle Vokabeln der Daten bereit, die in das Training eines Tranformer-Modells einfließen. Die Größe der Matrix entspricht der Anzahl der Vokabeln (sonst als Tokens bezeichnet, zu denen auch bswp. Satzzeichen zählen) Kreuz einer gewählten Dimension (also n x d), mit der jedem Eingabetoken genau eine Zeile innerhalb der Matrix zugeordnet werden kann (vgl. **Fig. 5**). Die Anzahl der Spalten entsprechen der gewählten Dimension. Die Werte für die Tokentypen werden während der Initialisierung eines Transformer-Modells zufällig ausgewählt. Es sind die Zeilen dieser Matrix, die auch als *Embeddings* bezeichnet werden. Man kann auch sagen, dass jeder Tokentyp eine Vektorrepräsentation besitzt. Wobei diese Vektoren in einem weiteren Schritt mit der positionalen Enkodierung addiert so der Eingabe eine einzigartige Darstellung verleihen. Entscheidend ist, dass die *Embeddings* der Transformerarchitektur sich im Laufe eines Trainings auch verändern, d.h. entsprechend der Daten angepasst, also 'gelernt' werden können.
 
@@ -128,7 +128,7 @@ Die Positionen der Tokens werden nach Vaswani et al. (2017) wie folgt berechnet:
 \end{equation}
 *pos* entspricht der absoluten Position innerhalb einer Eingabesequenz der Länge **N**, der Wert $$10000$$ ist eine gewählte Konstante, und **i** verweist auf die Indezes der *Embeddings*, d.h. bei einer gewählten Dimension der *Embedding*-Vektoren mit $$d=4$$, gilt $$i \in I= \{0, 1, 2, 3\}$$. Schließlich erlauben die beiden Sinus- und Kosinusfunktionen für gerade und ungerade Indizes unterschiedliche Werte zu ermitteln. Für alle gerade Indizes eines *Embeddings* können wir (8) und für alle ungeraden (9) verwenden. Erwähnenswert ist hier, dass die Frequenzen der Sinus- und Kosinusfunktionen der *PE* von der gewählten Dimension abhängig sind. Kleine *Embedding*-Dimensionen führen zu höheren Frequenzen (feinere Positionsauflösungen) und hohe Dimensionen zu niedrigere Frequenzen (grobere Positionsauflösungen). Anhand dieser Vorgaben wird schließlich für jede Eingabe eine Positionsenkodierungs-Matrix berechnet -- also für jeden Token ein Positionsvektor (vgl. **Fig. 6**) -- welche wir daraufhin auf die Matrix der Token-*Embeddings* addieren können. Im Zusammenspiel mit den *Embeddings* wird dem Transformer-Modell dadurch eine kontextsensitive Repräsentation der Tokens zur weiteren Verarbeitung überreicht.
 
-{% include figure.liquid loading="eager" path="assets/img/positional_encoding.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 6:** Beispielsequenz, deren Tokens in Positionsenkodierungen mit $$d=4$$ überführt werden
+{% include figure.liquid loading="eager" path="assets/img/positional_encoding.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 6:** Beispielsequenz, deren Tokens in Positionsenkodierungen mit $$d=4$$ überführt werden
 
 #### 3.3 Selbstaufmerksamkeitsmechanismus
 
@@ -150,21 +150,23 @@ Zu dieser Darstellung der Aufmerksamkeit fügen Vaswani et al. (2017) eine weite
 \begin{equation}
     z_{i} = \sum_{j=1}^{T}a_{ij}v^{j}
 \end{equation}
-Denn Vaswani et al. (2017) überführen jedes $$x$$ in ein Tripel aus ($$v^{i}$$, $$k^{i}$$, $$q^{i}$$) mittels den Projektionsmatrizen ($$W_{v}$$, $$W_{k}$$, $$W_{q}$$ -- die hier auch als zusätzliche lineare Schichten aufgefasst werden können). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Abfrage-, Schlüssel-, Werttripeln arbeitet. Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden deshalb in Vaswani et al. (2017) auch nicht mit (12) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
+Denn Vaswani et al. (2017) überführen jedes $$x$$ in ein Tripel aus ($$v^{i}$$, $$k^{i}$$, $$q^{i}$$) mittels den Projektionsmatrizen ($$V$$, $$K$$, $$Q$$ -- die hier auch als zusätzliche lineare Schichten aufgefasst werden können). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Wert-, Schlüssel-, Abfragetripeln arbeitet (wegen Values, Keys, Queries die Abkürzungen V, K, Q). Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden deshalb in Vaswani et al. (2017) auch nicht mit (12) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
 \begin{equation}
     \omega_{ij} = q^{(i)T}k^{j}
 \end{equation}
-Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Eingaben innerhalb einer Sequenz $$X$$ wird die Selbstaufmerksamkeit noch durch verschiedene Darstellungen aller umliegenden $$x^j \in X$$ in Form ihrer Abfrage-, Schlüssel-, Wertrepräsentationen berechnet.
+Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Eingaben innerhalb einer Sequenz $$X$$ wird die Selbstaufmerksamkeit noch durch verschiedene Darstellungen aller umliegenden $$x^j \in X$$ in Form der Abfrage-, Schlüssel-, Wertrepräsentationen berechnet.
 
-{% include figure.liquid loading="eager" path="assets/img/projection_matrices.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 8:** Selbstaufmerksamkeit für eine Eingabe X mit mehreren Köpfen (*heads*)
+{% include figure.liquid loading="eager" path="assets/img/projection_matrices_ger.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 8:** Aufmerksamkeit für eine Eingabe X mit mehreren Köpfen (*heads*)
 
-Die Selbstaufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 8** und **Fig. 4**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (12)) die für die Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
+Die Aufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 8** und **Fig. 4**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (12)) die für die Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
 
 #### 3.4 Der Transformer-Dekodierer
 
-Der Dekodierer der Transformerarchitektur folgt strukturell dem Enkodierer mit einem Unterschied. Er enthält eine weitere Selbstaufmerksamkeitsschicht (vgl. **Fig. 7**). In dieser Schicht können Teile der Dekodierereingabe verdeckt werden (dies wird auch als *Masking* beschrieben). Wie bereits erwähnt lässt ein Transformer-Modell grundsätzlich eine Betrachtung aller Eingaben gleichzeitig zu. Für die Prädiktion zum Beispiel einer Übersetzungen muss der Dekodierer allerdings ohne die Information der Lösungen arbeiten -- die diesem im Laufe des Trainings in Teilen unmaskiert zugänglich waren. Durch das Verdecken bleiben dem Dekodierer nur die enkodierten Eingaben aus der Ursprungssprache sowie autoregressiv die bereits vorhergesagten Wörter, bis der Übersetzungsprozess terminiert.
+Der Dekodierer der Transformerarchitektur folgt strukturell dem Enkodierer. Er enthält jedoch noch eine zusätzliche Schicht (vgl. **Fig. 7**). In dieser Schicht werden die ausgegebenen Informationen des Enkodierers (z.B. der enkodierte Ursprungssatz einer Übersetzung) über die Wert- und Schlüsselmatrizen $$V$$, $$K$$ mit berücksichtigt. Die Abfragewerte $$Q$$ kommen hingegen von der vorangegangenen Aufmerksamkeitsschicht des Dekodierers. Durch die Kombination der Informationen sowohl des Enkodierers als auch des Dekodierers wird diese weitere Schicht auch als 'Cross-Aufmerksamkeitsschicht' bezeichnet. Da dabei Enkodierer-Informationen mit einbezogen werden, lässt sich bei dem ganzen Modell (Enkodierer + Dekodierer) zudem von einem *bedingten* Srpachmodell sprechen, wie dieses zuvor in (3) vorgestellt.
 
-{% include figure.liquid loading="eager" path="assets/img/transformer_dekodierer.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 7:** Dekodierer eines Transformer-Modells
+{% include figure.liquid loading="eager" path="assets/img/transformer_decoder_ger.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 7:** Dekodierer eines Transformer-Modells
+
+Die Selbstaufmerksamkeitsschicht des Dekodierers erlaubt es, Teile der Dekodierereingabe zu verdecken (dies wird auch als *Masking* beschrieben, geanuer gesagt *Causal Masking*). Ein Transformer-Enkodierer lässt hingegen grundsätzlich eine Betrachtung aller Eingaben gleichzeitig zu. Das Masking spielt eine wichtige Rolle bei dem Ziel des Dekodierers: z.B. die Vorhersage einer Übersetzung. Zur Prädiktion einer Übersetzungssequenz arbeitet der Dekodierer sich jeweils autoregressiv von Token zu Token vor (z.B. von links nach rechts, vgl. hierzu auch (5)). Das bedeutet das beim Inferenzieren jede Prädiktion nur mit Hilfe vorangegangener Tokens arbeitet, die anderen bleiben im übertragenen Sinne maskiert. Für das Training können dem Modell noch durch *Teacher-Forcing* korrekte Übersetzungen als Eingabe mit zugeführt werden, um eine Fehlerfortpflanzung zu minimieren -- wie bei den zuvor beschriebenen Sequenz-zu-Sequenz-Modellen. Grundsätzlich ist das Trainingsziel die Vorhersagen des Modells anhand der Übersetzungslösungen zu optimieren. Ein Übersetzungsprozess terminiert in jedem Fall, wenn der Token **<eos>** oder die zuvor definierte maximale Sequenzlänge erreicht sind.
 
 ## 4 Transferlernen via BERT
 
