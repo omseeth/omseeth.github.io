@@ -176,7 +176,7 @@ wobei $$b$$ noch ein zusätzlicher Bias ist. Auf der Grundlage dieses *Logits*-V
 
 ## 4 GPT, BERT und co
 
-Derweil die ursprüngliche Transformerarchitektur zur maschinellen Übersetzung entwickelt wurde, haben sich Transformer-Modelle bei anderen Aufgaben ebenfalls bewährt. Am bekanntesten sind große Sprachmodelle wie *Generative Pre-trained Transformer*-Modelle  (Radford et al., 2018) von OpenAI, die unter der Bedingung einer Eingabe mit einem Transformer-Dekodierer den nächsten *Token* einer Sequenz vorhersagen. Das *Bidirectional Encoder Representations from Transformers*-Modell (kurz BERT, Devlin et al., 2019) ist wiederum ein Transformer-Enkodierer. Das heißt mit BERT können keine neuen Wörter oder Sätze in einer Zielsprache *autoregressiv* generiert werden. BERT stellt dafür Enkodierungen bereit, mit deren Hilfe sich zum Beispiel Klassifikationsaufgaben lösen lassen.
+Derweil die ursprüngliche Transformerarchitektur zur maschinellen Übersetzung entwickelt wurde, haben sich Transformer-Modelle bei anderen Aufgaben ebenfalls bewährt. Am bekanntesten sind große Sprachmodelle wie *Generative Pre-trained Transformer*-Modelle  (Radford et al., 2018) von OpenAI, die eine Eingabe (Prompt) mit einem Transformer-Dekodierer sozusagen 'weiterschreiben', d.h. die nächsten *Token* der Sequenz vorhersagen. Das *Bidirectional Encoder Representations from Transformers*-Modell (kurz BERT, Devlin et al., 2019) ist wiederum ein Transformer-Enkodierer. Das heißt mit BERT können keine neuen Wörter oder Sätze in einer Zielsprache *autoregressiv* generiert werden. BERT stellt dafür Enkodierungen bereit, mit deren Hilfe sich zum Beispiel Klassifikationsaufgaben lösen lassen.
 
 #### 4.1 Das *Bidirectional Encoder Representations from Transformers*-Modell
 
