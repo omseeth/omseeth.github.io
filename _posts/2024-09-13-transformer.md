@@ -141,7 +141,7 @@ Im Gegensatz zu dem Aufmerksamkeitsmechanismus nach Bahdanau et al. (2014) entwi
 \begin{equation}
     z_{i} = \sum_{j=1}^{T}a_{ij}x^{j}
 \end{equation}
-wobei $$a_{ij}$$ nicht mit einem Status $$h^{t}$$, sondern mit den Eingaben $$x^{j}$$ multipliziert wird, mit $$j\in{\{1...T\}}$$ einer Eingabesequenz der Länge $$T$$ (vgl. die Summe über alle $$x^{j}$$ in (12)). Im Unterschied zu Bahdanau et al. (2014) ist $$a$$ dabei keine Normalisierung von einfachen *feedforward* Netzen $$e_{ij}$$, sondern eine *Softmax*-Normalisierung über die Skalarprodukte $$\Omega$$ der Eingabe $$x^{i}$$ bezogen auf alle anderen Eingaben $$x^{1}...x^{T}$$ (Raschka et al., 2022):
+wobei $$a_{ij}$$ nicht mit einem Status $$h^{t}$$, sondern mit den Eingaben $$x^{j}$$ multipliziert wird, mit $$j\in{\{1, ..., T\}}$$ einer Eingabesequenz der Länge $$T$$ (vgl. die Summe über alle $$x^{j}$$ in (12)). Im Unterschied zu Bahdanau et al. (2014) ist $$a$$ dabei keine Normalisierung von einfachen *feedforward* Netzen $$e_{ij}$$, sondern eine *Softmax*-Normalisierung über die Skalarprodukte $$\Omega$$ der Eingabe $$x^{i}$$ bezogen auf alle anderen Eingaben $$X=x^{1}, ..., x^{T}$$ (Raschka et al., 2022):
 \begin{equation}
     a_{ij} = \frac{\exp(\omega_{ij})}{\sum_{j=1}^{T}\exp(\omega_{ij})}
 \end{equation}
@@ -155,7 +155,7 @@ Zu dieser Darstellung der Aufmerksamkeit fügen Vaswani et al. (2017) eine weite
 \begin{equation}
     z_{i} = \sum_{j=1}^{T}a_{ij}v^{j}
 \end{equation}
-Denn Vaswani et al. (2017) überführen jedes $$x$$ in ein Tripel aus ($$v^{i}$$, $$k^{i}$$, $$q^{i}$$) mittels den Projektionsmatrizen ($$V$$, $$K$$, $$Q$$ -- die hier auch als zusätzliche lineare Schichten aufgefasst werden können). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Wert-, Schlüssel-, Abfragetripeln arbeitet (wegen Values, Keys, Queries die Abkürzungen V, K, Q). Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden deshalb in Vaswani et al. (2017) auch nicht mit (14) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
+Denn Vaswani et al. (2017) überführen jedes $$x^{i}$$ in ein Tripel aus ($$v^{i}$$, $$k^{i}$$, $$q^{i}$$) mittels den Projektionsmatrizen ($$W_{V}$$, $$W_{K}$$, $$W_{Q}$$ -- die hier auch als zusätzliche lineare Schichten aufgefasst werden können). Die Idee dahinter entstammt dem *Information Retrieval*, das mit Wert-, Schlüssel-, Abfragetripeln arbeitet (wegen Values, Keys, Queries die Abkürzungen v, k, q). Die **V**, **K**, **Q** in der Dastellung entsprechen: $$V=XW_{V}$$, $$K=XW_{K}$$ sowie $$Q=XW_{Q}$$ (vgl. **Fig. 8**). Die Skalarprodukte des Selbstaufmerksamkeitsmechanismus für jede Eingabe werden in Vaswani et al. (2017) auch nicht mit (14) berechnet, sondern mit den Abfrage- und Schlüsselwerten (Raschka et al., 2022):
 \begin{equation}
     \omega_{ij} = q^{(i)T}k^{j}
 \end{equation}
@@ -167,7 +167,7 @@ Die Aufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddin
 
 #### 3.4 Der Transformer-Dekodierer
 
-Der Dekodierer der Transformerarchitektur folgt strukturell dem Enkodierer. Er enthält jedoch noch eine zusätzliche Schicht (vgl. **Fig. 7**). In dieser Schicht werden die ausgegebenen Informationen des Enkodierers (z.B. der enkodierte Ursprungssatz einer Übersetzung) über die Wert- und Schlüsselmatrizen $$V$$, $$K$$ mitberücksichtigt. Die Abfragewerte $$Q$$ kommen hingegen von der vorangegangenen Aufmerksamkeitsschicht des Dekodierers. Durch die Kombination der Informationen sowohl des Enkodierers als auch des Dekodierers wird diese weitere Schicht auch als 'Cross-Aufmerksamkeitsschicht' bezeichnet. Da dabei Enkodierer-Informationen mit einbezogen werden, lässt sich bei dem ganzen Modell (Enkodierer + Dekodierer) zudem von einem *bedingten* Sprachmodell sprechen, wie dieses zuvor in (5) vorgestellt.
+Der Dekodierer der Transformerarchitektur folgt strukturell dem Enkodierer. Er enthält jedoch noch eine zusätzliche Schicht (vgl. **Fig. 7**). In dieser Schicht werden die ausgegebenen Informationen des Enkodierers (z.B. der enkodierte Ursprungssatz einer Übersetzung) über die Wert- und Schlüsselwerte $$V$$, $$K$$ mitberücksichtigt. Die Abfragewerte $$Q$$ kommen hingegen von der vorangegangenen Aufmerksamkeitsschicht des Dekodierers. Durch die Kombination der Informationen sowohl des Enkodierers als auch des Dekodierers wird diese weitere Schicht auch als 'Cross-Aufmerksamkeitsschicht' bezeichnet. Da dabei Enkodierer-Informationen mit einbezogen werden, lässt sich bei dem ganzen Modell (Enkodierer + Dekodierer) zudem von einem *bedingten* Sprachmodell sprechen, wie dieses zuvor in (5) vorgestellt.
 
 {% include figure.liquid loading="eager" path="assets/img/transformer_decoder_ger.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 7:** Dekodierer eines Transformer-Modells
 
