@@ -19,10 +19,10 @@ Abstrakt betrachtet ist ein neuronales Netz zunächst ein Ansatz, um eine Funkti
 
 Neuronale Netze bestehen aus einer Mehrzahl von verknüpften Funktionen, die mit Hilfe eines gerichteten kreisfreien Graphen eine Eingabe bis zur Ausgabe verarbeiten. Die jeweiligen Funktionen können auch als Schichten (*layers*) $$h_{i}$$ mit $$i \in N$$ und $$N$$ als entsprechende Tiefe des Netzes bezeichnet werden. Die letzte Schicht wird als Ausgabeschicht $$a$$ bezeichnet. Anstatt dass man jede Funktion einer Schicht nur als eine Abbildung eines Vektor auf einen Vektor betrachtet, sollte man die Funktionen eher als Kompositionen von Einheiten verstehen, die zusammen Vektoren auf ein Skalar abbilden (Goodfellow et al. 2016). Das Konvolut an verknüpften Funktionen eines neuronalen Netztes umfasst auch nicht-lineare Funktionen (Aktivierungsfunktionen). Wir können die Schichten wie folgt definieren:
 \begin{equation}
-    h_{linear} := Wx + b
+    h_{linear} := W \cdot x + b
 \end{equation}
 \begin{equation}
-    h_{non-linear} := \sigma(Wx + b)
+    h_{non-linear} := \sigma(W \cdot x + b)
 \end{equation}
 wobei $$W$$ eine Matrix mit Gewichten, $$x$$ die Eingabe, $$b$$ zusätzliche Biases, und $$\sigma$$ eine Aktivierungsfunktion (z.B: *sigmoid*, *tanh*, *softmax*) sind. Ein neuronales Netz wird als *feedforward* bezeichnet, wenn von der Eingabe bis zur Ausgabe des Informationsflusses keine Form von Feedback berücksichtigt wird (Goodfellow et al. 2016). 
 
