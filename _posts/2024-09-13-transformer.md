@@ -90,7 +90,7 @@ Abschließend noch ein weiteres Wort zum Training eines Sequenz-zu-Sequenz-Model
 
 Um die Qualität der Übersetzungen, insbesondere für lange Sequenzen, zu verbessern, führen  Bahdanau et al. (2014) einen Aufmerksamkeitsmechanismus ein. Die Schwäche der Architektur nach Sutskever et al. (2014) liegt darin, dass die zu übersetzende Eingabe in eine einzige Repräsentation $$c$$ gezwängt wird, mit welcher der Dekodierer eine Übersetzung finden muss. Allerdings spielen für eine Übersetzung nicht alle Wörter eines Satzes eine gleich große Rolle und auch kann die Beziehung unter den Wörtern variieren. Ob der Artikel in 'the annoying man' für 'l'homme ennuyeux' mit 'le' oder 'l´' übersetzt wird, hängt im Französischen beispielsweise davon ab, ob auf den Artikel ein Vokal folgt, gegebenenfalls mit einem stummen 'h' davor (Bahdanau et al. 2014). Bahdanau et al. (2014) entwickeln deshalb einen Mechanismus, der diesen Nuancen besser gerecht wird (vgl. **Fig. 3**).
 
-{% include figure.liquid loading="eager" path="assets/img/attention_seq.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 3:** Aufmerksamkeitsgewichte für eine Eingabe mit Bezug auf die Ausgabe an der Position *i=2*
+{% include figure.liquid loading="eager" path="assets/img/attention_seq_ger.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 3:** Aufmerksamkeitsgewichte für eine Eingabe mit Bezug auf die Ausgabe an der Position *i=2*
 
 Die um Aufmerksamkeit erweiterte Architektur übermittelt dem Dekodierer statt $$c$$ für jede Eingabe kontextabhängige Zustände $$c_{i}$$:
 \begin{equation}
@@ -133,7 +133,7 @@ Die Positionen der Tokens werden nach Vaswani et al. (2017) wie folgt berechnet:
 \end{equation}
 *pos* entspricht der absoluten Position innerhalb einer Eingabesequenz der Länge **N**, der Wert $$10000$$ ist eine gewählte Konstante, und **i** verweist auf die Indezes der *Embeddings*, d.h. bei einer gewählten Dimension der *Embedding*-Vektoren mit $$d=4$$, gilt $$i \in I= \{0, 1, 2, 3\}$$. Schließlich erlauben die beiden Sinus- und Kosinusfunktionen für gerade und ungerade Indizes unterschiedliche Werte zu ermitteln. Für alle gerade Indizes eines *Embeddings* können wir (10) und für alle ungeraden (11) verwenden. Erwähnenswert ist hier, dass die Frequenzen der Sinus- und Kosinusfunktionen der *PE* von der gewählten Dimension abhängig sind. Kleine *Embedding*-Dimensionen führen zu höheren Frequenzen (feinere Positionsauflösungen) und hohe Dimensionen zu niedrigeren Frequenzen (gröbere Positionsauflösungen). Anhand dieser Vorgaben wird schließlich für jede Eingabe eine Positionsenkodierungs-Matrix berechnet -- also für jeden Token ein Positionsvektor (vgl. **Fig. 6**) -- welche wir daraufhin auf die Matrix der Token-*Embeddings* addieren können. Im Zusammenspiel mit den *Embeddings* wird dem Transformer-Modell dadurch eine kontextsensitive Repräsentation der Tokens zur weiteren Verarbeitung überreicht.
 
-{% include figure.liquid loading="eager" path="assets/img/positional_encoding.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 6:** Beispielsequenz, deren Tokens in Positionsenkodierungen mit $$d=4$$ überführt werden
+{% include figure.liquid loading="eager" path="assets/img/positional_encoding_ger.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 6:** Beispielsequenz, deren Tokens in Positionsenkodierungen mit $$d=4$$ überführt werden
 
 #### 3.3 Selbstaufmerksamkeitsmechanismus
 
