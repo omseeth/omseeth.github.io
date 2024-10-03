@@ -2,7 +2,7 @@
 layout: post
 title: Questioning Recursion as a Distinctive Feature of Human Language
 date: 2024-10-03 10:00:00
-description: From human languages to animal linguistics.
+description: Putting human language into perspective with animal linguistics
 tags: recursion language animal linguistics finite state grammar context free grammar
 categories: 
 ---
@@ -49,7 +49,7 @@ When quantitative differences between human language and animal communication ar
 
 Another strategy to question recursion in terms of center-embedding as a distinctive property of human language would be to grant that birds only use finite state grammars. However, it would be worthwhile discussing whether these grammars could approximate recursive patterns, such as center-embedding. While there still is need for research on this topic, part of the idea is also driven by the fact that humans’ cognitive capacities are finite. So human natural language might be less context sensible or even less context free in some respects and in that less recursive, as assumed.
 
-## Resources
+## Bibliography
 
 Ballentine, B. & Hyman, J. (2021). Bird Talk: An Exploration of Avian Communication. Cornell University Press.
 
