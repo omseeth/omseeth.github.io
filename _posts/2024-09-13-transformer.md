@@ -3,7 +3,7 @@ layout: post
 title: Transformer-Modelle wie GPT und BERT erklärt (German version)
 date: 2024-09-13 16:40:16
 description: Vom neuronalen Netz bis zu GPT und BERT, eine kontextualisierte Erklärung der Transformer-Architektur
-tags: machine learning, neural nets, feed-forward, attention-mechanism, transformer, GPT, BERT, transfer-learning, German
+tags: machine learning neural nets feed-forward attention-mechanism transformer GPT BERT transfer-learning German
 categories: 
 ---
 
@@ -228,6 +228,6 @@ Sutskever, I., Vinyals, O., und Le, Q. V. (2014). Sequence to sequence learning 
 
 Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L. u., und Polosukhin, I. (2017). Attention is All you Need. In Guyon, I., Luxburg, U. V., Bengio, S., Wallach, H., Fergus, R., Vishwanathan, S., und Garnett, R., Herausgeber, *Advances in Neural Information Processing Systems*, Band 30. Curran Associates, Inc.
 
-Zellers, R., Bisk, Y., Schwartz, R., und Choi, Y. (2018). SWAG: A Large-Scale Ad- versarial Dataset for Grounded Commonsense Inference. In Riloff, E., Chiang, D., Hockenmaier, J., und Tsujii, J., Herausgeber, *Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing*, Seiten 93–104, Brussels, Bel- gium. Association for Computational Linguistics.
+Zellers, R., Bisk, Y., Schwartz, R., und Choi, Y. (2018). SWAG: A Large-Scale Adversarial Dataset for Grounded Commonsense Inference. In Riloff, E., Chiang, D., Hockenmaier, J., und Tsujii, J., Herausgeber, *Proceedings of the 2018 Conference on Empirical Methods in Natural Language Processing*, Seiten 93–104, Brussels, Belgium. Association for Computational Linguistics.
 
 **Version 1.0**
