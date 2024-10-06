@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Was ist Argument Mining?
-date: 2024-10-06 10:00:00
+date: 2024-10-06 10:05:00
 description: Eine kleine Einführung zum Forschungsfeld des Argument Minings
 tags: argument mining NLP proposition conclusion 
 categories: 
