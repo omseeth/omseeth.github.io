@@ -70,7 +70,7 @@ In these models, the prediction of the word sequence not only depends on each pr
 
 The second idea is implemented by Sutskever et al. (2014) by developing an architecture consisting of two parts, an encoder and a decoder (see **Fig. 2**) (see also Cho et al. 2014). Whereby the encoder summarizes the source sentence into a fixed representation $$c$$ and then passes it to the decoder to predict the translation in the target language.
 
-{% include figure.liquid loading="eager" path="assets/img/seq2seq_en.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequence-to-sequence architecture with encoder and decoder
+{% include figure.liquid loading="eager" path="assets/img/seq2seq_en.png" class="img-fluid mx-auto d-block" width="100%" %}**Fig. 2:** Sequence-to-sequence architecture with encoder and decoder
 
 For the encoder, Sutskever et al. (2014) use an LSTM model that is fed vector representations (also called embeddings) for the words of an input sequence from the original language. Embeddings are used for the simple reason that neural networks can only operate with numbers and not letters. The hidden states of these inputs are then merged by the model into a final state $$c$$:
 \begin{equation}

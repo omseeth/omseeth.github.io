@@ -70,7 +70,7 @@ Bei diesen Modellen hängt die Vorhersage der Wortsequenz nicht nur von jedem vo
 
 Die zweite Idee (b) setzen Sutskever et al. (2014) um, indem sie eine Architektur aus zwei Teilen, einem Enkodierer und einem Dekodierer (siehe **Fig. 2**), entwickeln (vgl. auch Cho et al. 2014). Wobei der Enkodierer den Ursprungssatz in eine feste Repräsentation $$c$$ zusammenfasst und dann diese dem Dekodierer zum Vorhersagen der Übersetzung in der Zielsprache übergibt.
 
-{% include figure.liquid loading="eager" path="assets/img/seq2seq_ger.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
+{% include figure.liquid loading="eager" path="assets/img/seq2seq_ger.png" class="img-fluid mx-auto d-block" width="100%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
 
 Für den Enkodierer nutzen Sutskever et al. (2014) ein LSTM-Modell, dem Vektorrepräsentationen (auch *Embeddings* genannt) für die Wörter einer Eingabesequenz aus der Ursprungssprache zugeführt werden. Es werden *Embeddings* aus dem einfachen Grund verwendet, da neuronale Netze nur mit Zahlen und nicht mit Buchstaben operieren können. Die verborgenen Status dieser Eingaben werden daraufhin durch das Modell zu einem finalen Zustand $$c$$ zusammengeführt:
 \begin{equation}
