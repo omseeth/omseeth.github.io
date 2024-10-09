@@ -38,11 +38,11 @@ The approximation of the parameters $$\theta$$ (i.e. the weights and biases of t
 
 #### 2.1 Definition of a recurrent neural network
 
-In contrast to feedforward networks, recurrent neural networks exchange information within a layer with the states $$h_{i}^{t}$$ (also called hidden states). Each state at time $$t$$ not only receives information from the input, but also from the states $$t-1$$, i.e. from $$h_{i}^{t-1}$$ (cf. **Fig. 1**). In principle, the recurrence can also be performed from the output to each intermediate layer or only for each output.
+In contrast to feedforward networks, recurrent neural networks exchange information within a layer with the states $$h_{i}^{t}$$ (also called hidden states). Each state at time $$t$$ not only receives information from the input, but also from previous inputs, such as $$x_{t-1}$$, and their states, i.e. from $$h_{i}^{t-1}$$ and so on (cf. **Fig. 1**).
 
-{% include figure.liquid loading="eager" path="assets/img/rnn.png" class="img-fluid mx-auto d-block" width="40%" %}**Fig. 1:** Status of a neural network without (feedforward) and with feedback (recurrent) and in each case an input layer $$x$$, a hidden layer $$h1$$ and an output $$a$$
+{% include figure.liquid loading="eager" path="assets/img/rnn.png" class="img-fluid mx-auto d-block" width="40%" %}**Fig. 1:** Status of a neural network without (feedforward) and with feedback (recurrent) and in each case an input layer $$x$$, a hidden layer $$h_1$$ and an output $$a$$
 
-The advantage of recurrent neural networks such as the Long Short-Term Memory Model (LSTM for short in Hochreiter and Schmidhuber, 1997) is that they are particularly good at modelling sequential data such as speech. As inspired by Ferdinand de Saussure: The meaning of a word is derived from the interplay of the differences of the surrounding words (de Saussure, 1931). Thus, even a neural network can derive little meaning from an isolated consideration of each word. However, if the meanings of the surrounding word inputs are included in a layer of a recurrent network, i.e. a sequence as a whole, more information is taken into account.
+The advantage of recurrent neural networks such as the Long Short-Term Memory Model (LSTM for short in Hochreiter and Schmidhuber, 1997) is that they are particularly good at modelling sequential data such as speech. A net should base its prediction for an input from a sentence also on previous words. As inspired by Ferdinand de Saussure: The meaning of a word is derived from the interplay of the differences of the surrounding words (de Saussure, 1931). Thus, even a neural network can derive little meaning from an isolated consideration of each word. However, if the meanings of the surrounding word inputs are included in a layer of a recurrent network, i.e. a sequence as a whole, more information is taken into account.
 
 #### 2.2 Auto-regressive language models (LMs)
 
@@ -70,13 +70,13 @@ In these models, the prediction of the word sequence not only depends on each pr
 
 The second idea is implemented by Sutskever et al. (2014) by developing an architecture consisting of two parts, an encoder and a decoder (see **Fig. 2**) (see also Cho et al. 2014). Whereby the encoder summarizes the source sentence into a fixed representation $$c$$ and then passes it to the decoder to predict the translation in the target language.
 
+{% include figure.liquid loading="eager" path="assets/img/seq2seq_en.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequence-to-sequence architecture with encoder and decoder
+
 For the encoder, Sutskever et al. (2014) use an LSTM model that is fed vector representations (also called embeddings) for the words of an input sequence from the original language. Embeddings are used for the simple reason that neural networks can only operate with numbers and not letters. The hidden states of these inputs are then merged by the model into a final state $$c$$:
 \begin{equation}
     c = q(\{h^{1},...,h^{T}\})
 \end{equation}
 where $$q$$ corresponds to the LSTM model and $$T$$ to the length of the input sequence. The state $$c$$ is passed to the decoder.
-
-{% include figure.liquid loading="eager" path="assets/img/seq2seq_en.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequence-to-sequence architecture with encoder and decoder
 
 The decoder also consists of an LSTM model, which predicts a translation in the target language word by word based on the input state. Each translated word and the final encoder state of the original input $$c$$ are regressively fed to the decoder until the model completes the translation:
 \begin{equation}
@@ -84,11 +84,11 @@ The decoder also consists of an LSTM model, which predicts a translation in the 
 \end{equation}
 It completes the translation as soon as it predicts the token **\<eos\>**. We use this special token to show the model where sequences begin and end during training. In its predictions, the model will therefore also predict this token at the end of a sequence in the best case and thus terminate the inference process itself.
 
-Finally, one more word about the training of a sequence-to-sequence model: during training, the encoder of the model is shown sentences from the original language and its decoder is shown their translations according to a hyperparameter (e.g. with Professor Forcing (Goyal et al., 2016)), whereby the weights $$\theta$$ of both encoders can always be learned together and matched to each other.
+Finally, one more word about the training of a sequence-to-sequence model: during training, the encoder of the model is shown sentences from the original language and its decoder is shown their translations according to a hyperparameter (e.g. with Professor Forcing (Goyal et al., 2016)), whereby the weights $$\theta$$ of the encoder as well as the decoder can always be learned together and matched to each other.
 
 #### 2.4 The first attention mechanism
 
-To improve the quality of translations, especially for long sequences, Bahdanau et al. (2014) introduce an attention mechanism. The weakness of Sutskever et al.'s (2014) architecture is that the input to be translated is forced into a single representation $$c$$, with which the decoder must find a translation. However, not all words in a sentence play an equally important role in a translation and the relationship between the words can also vary. Whether the article in 'the annoying man' for 'l'homme ennuyeux' is translated as 'le' or 'l'', for example, depends in French on whether the article is followed by a vowel, possibly with a silent 'h' in front of it (Bahdanau et al. 2014). Bahdanau et al. (2014) therefore develop a mechanism that does better justice to these nuances (cf. **Fig. 3**).
+To improve the quality of translations, especially for long sequences, Bahdanau et al. (2014) introduce an attention mechanism. The weakness of Sutskever et al.'s (2014) architecture is that the input to be translated is forced into a single representation $$c$$, with which the decoder must find a translation. However, not all words in a sentence play an equally important role in a translation and the relationship between the words can also vary. Whether the article in 'the annoying man' for 'l'homme ennuyeux' is translated as 'le' or 'l´', for example, depends in French on whether the article is followed by a vowel, possibly with a silent 'h' in front of it (Bahdanau et al. 2014). Bahdanau et al. (2014) therefore develop a mechanism that does better justice to these nuances (cf. **Fig. 3**).
 
 {% include figure.liquid loading="eager" path="assets/img/attention_seq_en.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 3:** Attention weights for an input with reference to the output at position *i=2*
 
@@ -108,9 +108,9 @@ where $$a_{it}$$ is a normalization (softmax function) for the model $$e_{it}$$.
 
 The Transformer architecture (Vaswani et al., 2017) combines some of the previously mentioned elements. The architecture gives the attention mechanism a much greater role and dispenses with recurrent structures.
 
-The encoder of the Transformer architecture consists of stacks, each with two components, through which the incoming information is processed (see **Fig. 4**). Inputs are first fed in **parallel** to a layer with a self-attention mechanism, which is presented in Vaswani et al. (2017). After this mechanism has been applied, the information is normalized and then passed to another layer with a feedforward neural network. With this network, the processing of the input takes place **individually**. With an intermediate normalization step, mean values and standard deviations are calculated according to the principle of *layer normalization* (Ba et al. 2016; there is also root square layer normalization by Zhang & Sennrich (2019), which was used in Llama 2, for example). In addition, the normalized output is added to the output of the previous layer. This is also referred to as 'residual connection' and is a method to counteract the problem of disappearing gradients during backpropagation.
-
 {% include figure.liquid loading="eager" path="assets/img/transformer_encoder_en.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 4:** Encoder of a Transformer model
+
+The encoder of the Transformer architecture consists of stacks, each with two components, through which the incoming information is processed (see **Fig. 4**). Inputs are first fed in **parallel** to a layer with a self-attention mechanism, which is presented in Vaswani et al. (2017). After this mechanism has been applied, the information is normalized and then passed to another layer with a feedforward neural network. With this network, the processing of the input takes place **individually**. With an intermediate normalization step, mean values and standard deviations are calculated according to the principle of *layer normalization* (Ba et al. 2016; there is also root square layer normalization by Zhang & Sennrich (2019), which was used in Llama 2, for example). In addition, the normalized output is added to the output of the previous layer. This is also referred to as 'residual connection' and is a method to counteract the problem of disappearing gradients during backpropagation.
 
 #### 3.2 Embeddings with positional encoding
 

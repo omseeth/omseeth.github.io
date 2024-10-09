@@ -38,11 +38,11 @@ Die Approximation der Parameter $$\theta$$ (damit sind die Gewichtungen und Bias
 
 #### 2.1 Definition eines rekurrenten neuronalen Netzes
 
-Im Unterschied zu den *feedforward* Netzen werden bei rekurrenten neuronalen Netzen Informationen innerhalb einer Schicht mit den Zuständen $$h_{i}^{t}$$ (auch *hidden states* bzw. verborgene Zustände genannt) ausgetauscht. Jeder Zustand zum Zeitpunkt $$t$$ erhält nicht nur Informationen aus der Eingabe, sondern auch aus den Zuständen $$t-1$$, also aus $$h_{i}^{t-1}$$ (vgl. **Fig. 1**). Die Rekurrenz kann dabei prinzipiell ebenfalls von der Ausgabe zu jeder Zwischenschicht oder nur bei jeder Ausgabe vorgenommen werden.
+Im Unterschied zu den *feedforward* Netzen werden bei rekurrenten neuronalen Netzen Informationen innerhalb einer Schicht mit den Zuständen $$h_{i}^{t}$$ (auch *hidden states* bzw. verborgene Zustände genannt) ausgetauscht. Jeder Zustand zum Zeitpunkt $$t$$ erhält nicht nur Informationen aus der Eingabe $$x$$, sondern auch aus den vorangegangenen Eingaben, z.B. von $$x_{t-1}$$, mit ihren jeweiligen Zuständen, also aus $$h_{i}^{t-1}$$ usw. (vgl. **Fig. 1**).
 
-{% include figure.liquid loading="eager" path="assets/img/rnn.png" class="img-fluid mx-auto d-block" width="40%" %}**Fig. 1:** Status eines neuronalen Netzes ohne (*feedforward*) und mit Feed-back (rekurrent) sowie jeweils einer Eingabeschicht $$x$$, einer verborgenen Schicht $$h1$$ und einer Ausgabe $$a$$
+{% include figure.liquid loading="eager" path="assets/img/rnn.png" class="img-fluid mx-auto d-block" width="40%" %}**Fig. 1:** Status eines neuronalen Netzes ohne (*feedforward*) und mit Feed-back (rekurrent) sowie jeweils einer Eingabeschicht $$x$$, einer verborgenen Schicht $$h_1$$ und einer Ausgabe $$a$$
 
-Der Vorteil rekurrenter neuronaler Netze wie dem *Long Short-Term Memory*-Modell (kurz LSTM in Hochreiter und Schmidhuber, 1997) liegt darin, insbesondere sequenzielle Daten wie zum Beispiel Sprache sehr gut modellieren zu können. Wie man mit Ferdinand de Saussure inspiriert pointieren kann: Die Bedeutung eines Wortes leitet sich aus dem Zusammenspiel der Differenzen der umliegenden Wörter ab (de Saussure, 1931). So kann auch ein neuronales Netz wenig Sinn aus einer isolierten Betrachtung eines jeden Wortes ableiten. Werden hingegen die Bedeutungen der umliegenden Worteingaben mit in einer Schicht eines rekurrenten Netzes einbezogen, das heißt insgesamt eine Sequenz, können dadurch komplexere Zusammenhänge abgebildet werden.
+Der Vorteil rekurrenter neuronaler Netze wie dem *Long Short-Term Memory*-Modell (kurz LSTM in Hochreiter und Schmidhuber, 1997) liegt darin, insbesondere sequenzielle Daten wie zum Beispiel Sprache sehr gut modellieren zu können. Bei Sätzen sollte ein Netz die Vorhersage einer Eingabe auch von vorangegenangen Eingaben abhängig machen. Wie man mit Ferdinand de Saussure inspiriert pointieren kann: Die Bedeutung eines Wortes leitet sich aus dem Zusammenspiel der Differenzen der umliegenden Wörter ab (de Saussure, 1931). So kann auch ein neuronales Netz wenig Sinn aus einer isolierten Betrachtung eines jeden Wortes ableiten. Werden hingegen die Bedeutungen der umliegenden Worteingaben mit in einer Schicht eines rekurrenten Netzes einbezogen, das heißt insgesamt eine Sequenz, können dadurch komplexere Zusammenhänge abgebildet werden.
 
 #### 2.2 Ein auto-regressives Sprachmodell
 
@@ -70,13 +70,13 @@ Bei diesen Modellen hängt die Vorhersage der Wortsequenz nicht nur von jedem vo
 
 Die zweite Idee (b) setzen Sutskever et al. (2014) um, indem sie eine Architektur aus zwei Teilen, einem Enkodierer und einem Dekodierer (siehe **Fig. 2**), entwickeln (vgl. auch Cho et al. 2014). Wobei der Enkodierer den Ursprungssatz in eine feste Repräsentation $$c$$ zusammenfasst und dann diese dem Dekodierer zum Vorhersagen der Übersetzung in der Zielsprache übergibt.
 
+{% include figure.liquid loading="eager" path="assets/img/seq2seq_ger.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
+
 Für den Enkodierer nutzen Sutskever et al. (2014) ein LSTM-Modell, dem Vektorrepräsentationen (auch *Embeddings* genannt) für die Wörter einer Eingabesequenz aus der Ursprungssprache zugeführt werden. Es werden *Embeddings* aus dem einfachen Grund verwendet, da neuronale Netze nur mit Zahlen und nicht mit Buchstaben operieren können. Die verborgenen Status dieser Eingaben werden daraufhin durch das Modell zu einem finalen Zustand $$c$$ zusammengeführt:
 \begin{equation}
     c = q(\{h^{1},...,h^{T}\})
 \end{equation}
 wobei $$q$$ dem LSTM-Modell entspricht und $$T$$ der Länge der Eingabesequenz. Der Zustand $$c$$ wird dem Dekodierer übergeben. 
-
-{% include figure.liquid loading="eager" path="assets/img/seq2seq_ger.png" class="img-fluid mx-auto d-block" width="90%" %}**Fig. 2:** Sequenz-zu-Sequenz-Architektur mit Enkodierer und Dekodierer
 
 Der Dekodierer besteht auch aus einem LSTM-Modell, welches auf der Grundlage des übergebenen Zustandes Wort für Wort eine Übersetzung in der Zielsprache vorhersagt. Dabei werden jedes übersetzte Wort und der Enkodierer-Endzustand der ursprünglichen Eingabe $$c$$ regressiv dem Dekodierer so lange zugeführt, bis das Modell die Übersetzung abschließt: 
 \begin{equation}
@@ -108,9 +108,9 @@ wobei $$a_{it}$$ eine Normalisierung (*Softmax*-Funktion) für das Modell $$e_{i
 
 Die Transformerarchitektur (Vaswani et al., 2017) führt einige der zuvor genannten Elemente zusammen. Die Architektur verleiht dabei dem Aufmerksamkeitsmechanismus eine wesentlich größere Rolle und verzichtet auf rekurrente Strukturen.
 
-Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Komponenten, durch die die eingehenden Informationen verarbeitet werden (vgl. **Fig. 4**). Eingaben werden als erstes einer Schicht mit einem Selbstaufmerksamkeitsmechanismus **parallel** zugeführt, der in Vaswani et al. (2017) vorgestellt wird. Nachdem dieser Mechanismus angewendet wurde, werden die Informationen normalisiert und daraufhin einer weiteren Schicht mit einem *feedforward* neuronalen Netz übergeben. Die Verarbeitung der Eingaben findet auf dieser Schicht wiederum **einzeln** statt. Für den Zwischenschritt der Normalisierung werden Mittelwerte und Standardabweichungen nach dem Prinzip der *Layer Normalization* berechnet (Ba et al. 2016; es gibt auch *Root Square Layer Normalization* von Zhang & Sennrich (2019), die z.B. in Llama 2 angewendet wurde). Zusätzlich wird die normalisierte Ausgabe mit der Ausgabe der vorangegangenen Schicht addiert. Dies wird auch als '*Residual Connection*' bezeichnet und ist eine Methode, um dem Problem verschwindender Gradienten während der *Backpropagation* etwas entgegenzuwirken.
-
 {% include figure.liquid loading="eager" path="assets/img/transformer_encoder_ger.png" class="img-fluid mx-auto d-block" width="60%" %}**Fig. 4:** Enkodierer eines Transformer-Modells
+
+Der Enkodierer der Transformerarchitektur besteht aus Ebenen mit jeweils zwei Komponenten, durch die die eingehenden Informationen verarbeitet werden (vgl. **Fig. 4**). Eingaben werden als erstes einer Schicht mit einem Selbstaufmerksamkeitsmechanismus **parallel** zugeführt, der in Vaswani et al. (2017) vorgestellt wird. Nachdem dieser Mechanismus angewendet wurde, werden die Informationen normalisiert und daraufhin einer weiteren Schicht mit einem *feedforward* neuronalen Netz übergeben. Die Verarbeitung der Eingaben findet auf dieser Schicht wiederum **einzeln** statt. Für den Zwischenschritt der Normalisierung werden Mittelwerte und Standardabweichungen nach dem Prinzip der *Layer Normalization* berechnet (Ba et al. 2016; es gibt auch *Root Square Layer Normalization* von Zhang & Sennrich (2019), die z.B. in Llama 2 angewendet wurde). Zusätzlich wird die normalisierte Ausgabe mit der Ausgabe der vorangegangenen Schicht addiert. Dies wird auch als '*Residual Connection*' bezeichnet und ist eine Methode, um dem Problem verschwindender Gradienten während der *Backpropagation* etwas entgegenzuwirken.
 
 #### 3.2 *Embeddings* mit positioneller Enkodierung
 
