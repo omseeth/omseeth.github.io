@@ -6,7 +6,7 @@ subtitle: <a href='https://www.cis.uni-muenchen.de/'>University of Munich</a>  |
 
 profile:
   align: right
-  image: self.jpg
+  image: self.JPG
   image_circular: false # crops the image to make it circular
   more_info:
 
