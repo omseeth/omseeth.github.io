@@ -206,6 +206,8 @@ The scripts used for the experiments can be found here: [https://github.com/omse
 
 {% include figure.liquid loading="eager" path="assets/img/using_llms/P_ger.png" class="img-fluid mx-auto d-block" width="80%" %}
 
+I would like to thank Martin Salzmann for providing me with the materials and experimental data from Salzmann et al. (2022).
+
 ## Bibliography
 
 Adger, D., Drummond, A., Hall, D., and van urk, C. (2017). Is there condition c reconstruction? In Lamont, A. and Tetzloff, K., editors, Nels 47: Proceedings of the forty-seventh annual meeting of the North East Linguistic Society, volume 1, pages 21–30. GLSA.
