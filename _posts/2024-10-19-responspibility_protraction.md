@@ -71,7 +71,7 @@ To sum up, in this section I have argued that the deployment of RCCVs is prone t
 
 ## Conclusion and Measures to Address Possible RCCV Misconduct
 
-The previous analysis agrees with the established view that armed drones do not create responsibility gaps$$6$$; for there seem to be no realistic cases of unintended, uncontrolled, physical outcomes, unbeknownst to their operators, with contemporary RCCVs. However, there is evidence suggesting that RCCVs create other problems with responsibility, by protracting its allocation. If that is the case, RCCV deployments pose a problem for our ethical standards.
+The previous analysis agrees with the established view that armed drones do not create responsibility gaps$$^6$$; for there seem to be no realistic cases of unintended, uncontrolled, physical outcomes, unbeknownst to their operators, with contemporary RCCVs. However, there is evidence suggesting that RCCVs create other problems with responsibility, by protracting its allocation. If that is the case, RCCV deployments pose a problem for our ethical standards.
 
 Just War principles and established military conventions, such as The Convention on Certain Conventional Weapons, are meant to prevent excessive force. But if unjust harm is being done with armed drones, and no one seems to be fully responsible for it, it would be difficult to hold someone accountable. Who should it be? The pilot? The officer or the intelligence service agent who discuss suspects? The general? The head of state? This is an ethically undesirable situation because the responsible use of machines is not only achieved through good will on the operators’ side, but also by sanctions for misconduct that can only be applied if it is clear who has been responsible for the machine’s output. If, however, no one can be held responsible for RCCVs, then there is no way for sanctions and further legal action; and the deployment of RCCVs eventually invites excessive and unjust use.
 
@@ -93,17 +93,17 @@ In sum, I am suggesting several measures to address possible RCCV misconduct: (a
 
 ## Footnotes
 
-(1) The paper is an ameliorated and extended version of Chapter 3.3. from my master’s thesis Drone Ethics: Duties and Responsibilities for Unmanned Aerial Combat Vehicles from 2020, which is accessible at the library of the University of Vienna, Austria.
+$$^1$$ The paper is an ameliorated and extended version of Chapter 3.3. from my master’s thesis Drone Ethics: Duties and Responsibilities for Unmanned Aerial Combat Vehicles from 2020, which is accessible at the library of the University of Vienna, Austria.
 
-(2) One notable exception is Jail Galliott’s nineth chapter on responsibility gaps in his Military Robots. Mapping the Moral Landscape (2015).
+$$^2$$ One notable exception is Jail Galliott’s nineth chapter on responsibility gaps in his Military Robots. Mapping the Moral Landscape (2015).
 
-(3) Al-Aulaqi v. Obama, in which these privileges played a role, was ultimately dismissed on different grounds (U.S. Congressional Research Service 2022, 27)
+$$^3$$ Al-Aulaqi v. Obama, in which these privileges played a role, was ultimately dismissed on different grounds (U.S. Congressional Research Service 2022, 27)
 
-(4) Thomas Simpsons and Vincent Müller (2016) as well as Sebastian Köhler (2020, 3137) also defend this view.
+$$^4$$ Thomas Simpsons and Vincent Müller (2016) as well as Sebastian Köhler (2020, 3137) also defend this view.
 
-(5) The rise of amateur drone deployments (as was the case in Ukraine against the Russian military in 2022) increases the chance of bugs and flawed designs. But do amateur models lead to systematic responsibility gaps? To address this question, further information concerning actual deployments is required that is not yet available as of 2023. This paper focuses on RCCVs that have been produced by licensed companies, undergone professional testing, and which are maintained by professional mechanics.
+$$^5$$ The rise of amateur drone deployments (as was the case in Ukraine against the Russian military in 2022) increases the chance of bugs and flawed designs. But do amateur models lead to systematic responsibility gaps? To address this question, further information concerning actual deployments is required that is not yet available as of 2023. This paper focuses on RCCVs that have been produced by licensed companies, undergone professional testing, and which are maintained by professional mechanics.
 
-(6) That is, there are no responsibility gaps when we analyze armed drones based on Alex Leveringhaus’s criteria (2016). Ibo van de Poel et al. (2012) speak of the Problem with Many Hands also in terms of responsibility “gaps”.
+$$^6$$ That is, there are no responsibility gaps when we analyze armed drones based on Alex Leveringhaus’s criteria (2016). Ibo van de Poel et al. (2012) speak of the Problem with Many Hands also in terms of responsibility “gaps”.
 
 ## Bibliography
 
