@@ -25,11 +25,11 @@ This post we will touch on three aspects:
 
 ## Inspiration: philosophy of technology
 
-**I, technology, and the world:** The philosopher Don Ihde (1990) introduces a simple, but powerful, abstraction that can help us reflect on technologies. Consider yourself looking through a microscope, seeing the wonders of the world from a different angle. As you observe bacteria on a little petri dish, you forget everything around yourself. In fact, you have morphed with the microscope. It has become part of your vision and even of yourself. Ihde describes this relation with the technology with this short formula (Ihde 1990): 
+**I, technology, and the world:** The philosopher Don Ihde (1990) introduces a simple, but powerful, abstraction that can help us reflect on technologies. Consider yourself looking through a microscope, seeing the wonders of the world from a different angle. As you observe bacteria on a little petri dish, you forget everything around yourself. In fact, you have morphed with the microscope. It has become part of your vision and even of yourself. Ihde (1990) describes this relation with the technology with this short formula: 
 
 `(I – Technology) – World`
 
-Imagine you are in a warm room and the rain is pouring down on your window. As you are looking at the thermostat on your wall, you are seeing that it is almost freezing outside. When you become aware of the temperature, you are not feeling the cold. It is transmitted to you by the thermostat. Ihde describes this constellation as follows (Ihde 1990): 
+Imagine you are in a warm room and the rain is pouring down on your window. As you are looking at the thermostat on your wall, you are seeing that it is almost freezing outside. When you become aware of the temperature, you are not feeling the cold. It is transmitted to you by the thermostat. Ihde (1990) describes this constellation as follows: 
 
 `I – (Technology – World)`
 
@@ -49,6 +49,6 @@ In this post, you have learned a basic understanding of ethics. You saw an abstr
 
 ## Bibliography
 
-Ihde, D. (1990). Technology and the Lifeworld - From Garden to Earth. Indiana University Press.
+Ihde, D. (1990). Technology and the Lifeworld -- From Garden to Earth. Indiana University Press.
 
 Kant, I. (1993). Groundwork of the Metaphysics of Morals. Translated by Ellington, James W. (3rd ed.). Hackett.
