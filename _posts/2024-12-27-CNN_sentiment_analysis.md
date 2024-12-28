@@ -220,7 +220,8 @@ def batching(instances: list, batch_size: int, shuffle: bool):
     Batches input instances along the given size and returns list of batches.
 
     Args:
-        instances, list: List of instances, containing a tuple of two tensors for each text as well as corresponding label.
+        instances, list: List of instances, containing a tuple of two tensors 
+            for each text as well as corresponding label.
         batch_size, int: Size for batches.
         shuffle, bool: If true, the instances will be shuffled before batching.
     Returns:
