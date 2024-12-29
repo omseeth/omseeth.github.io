@@ -302,9 +302,9 @@ LeCun et al. (1989) published their paper titled 'Handwritten Digit Recognition 
 
 #### Multiple channels
 
-In fact, the input to a CNN can be greater than one. If we're dealing with images that are encoded in terms of RGB colors, we can split up the input into three two-dimensional matrices corresponding to red, green, and blue color information and feed them to the CNN. Each input matrix would be called one **channel**. For this matter, in most CNN implementations the convolutional layers expect an input of **rank 3** where $$E_{n_1\times n_2 \times c_{in}}$$ would be the input of dimensions $$n_1\times n_2$$ times $$c_{in}$$, such as $$c_{in} = 3$$ for three different color matrices.
+In fact, the input to a CNN can be greater than one. If we're dealing with images that are encoded in terms of RGB colors, we can split up the input into three two-dimensional matrices corresponding to red, green, and blue color information and feed them to the CNN. Each input matrix would be called one **channel**. For this matter, in most CNN implementations the convolutional layers expect an input with **3 dimensions** where $$E_{n_1\times n_2 \times c_{in}}$$ would be the input of dimensions $$n_1\times n_2$$ times $$c_{in}$$, such as $$c_{in} = 3$$ for three different color matrices.
 
-The further processing of the input allows a lot of variability: Each $$c_{in}$$ input will have its own filter. The filters can be also stored as three-dimensional tensors: $$F_{m_1\times m_2 \times c_{in}}$$. Usually, the filtered results from each respective input will be element-wise added to create the output feature map. But sometimes it also helps to have multiple feature maps as outputs to capture different aspects from the input. In this case, the filters can be changed to four-dimensional tensors (**rank 4**): $$F_{m_1\times m_2 \times c_{in}\times c_{out}}$$ where $$c_{out}$$ determines the numbers of feature maps that we want (see **Fig. 4**).
+The further processing of the input allows a lot of variability: Each $$c_{in}$$ input will have its own filter. The filters can be also stored as three-dimensional tensors: $$F_{m_1\times m_2 \times c_{in}}$$. Usually, the filtered results from each respective input will be element-wise added to create the output feature map. But sometimes it also helps to have multiple feature maps as outputs to capture different aspects from the input. In this case, the filters can be changed to four-dimensional tensors: $$F_{m_1\times m_2 \times c_{in}\times c_{out}}$$ where $$c_{out}$$ determines the numbers of feature maps that we want (see **Fig. 4**).
 
 {% include figure.liquid loading="eager" path="assets/img/CNN_sentiment/four_dim_filter.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 4**: Multiple filters (kernels) for three input channels, producing four feature maps
 
@@ -337,7 +337,7 @@ class CNN_Classifier(nn.Module):
 
         # One-dimensional convolution-layer with 300 input channels, and 100  
         # output channels as well as kernel size of 3; note that the
-        # one-dimensional convolutional layer is of rank 3
+        # one-dimensional convolutional layer has 3 dimensions
         self.conv_1 = nn.Conv1d(300, 100, 3, padding="same")
 
         # Pooling with with a one-dimensional sliding window of length 3, 
@@ -392,7 +392,7 @@ class CNN_Classifier(nn.Module):
         x = self.pool_2(x)
         # print(x.shape)
 
-        # At this point we have a tensor of rank 3; however, the final layer 
+        # At this point we have a tensor with 3 dimensions; however, the final layer 
         # requires an input of size [batch_size x 50]. To get this value we can 
         # aggregate the values and continue only with their mean
         x = x.mean(dim=-1)
