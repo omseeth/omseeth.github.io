@@ -264,11 +264,7 @@ One CNN layer consists of one convolutional and one pooling layer.
 
 Filters shift over the input. If the input is one-dimensional, that is, a vector, then the filter is itself a one-dimensional, usually smaller vector. If the input is two-dimensional, a matrix, then the filter needs to be a matrix, too.
 
-For a one-dimensional input of length $$n=8$$, such as $$[2, 1, 0, 3, 6, 7, 9, 1]$$, we can define a filter of size $$m=3$$, such as $$[1, -1, 0]$$. As the shifting starts, we'll multiply the first three entries of the input vector with the filter: 
-$$
-[2, 1, 0] * [1, -1, 0]^T = 1 
-$$
-In this fashion, we obtain the first entry for our feature map: $$y[0]=1$$. Next, we shift the filter one step forward and repeat the multiplication, until the filter reaches the end of the input, bounded by its last index (see **Fig. 1**). We can formalize this operation between the filter vector *f* and the input vector *e* as follows: 
+For a one-dimensional input of length $$n=8$$, such as $$[2, 1, 0, 3, 6, 7, 9, 1]$$, we can define a filter of size $$m=3$$, such as $$[1, -1, 0]$$. As the shifting starts, we'll multiply the first three entries of the input vector with the filter:$$[2, 1, 0] * [1, -1, 0]^T = 1$$ In this fashion, we obtain the first entry for our feature map: $$y[0]=1$$. Next, we shift the filter one step forward (with **stride**=1) and repeat the multiplication, until the filter reaches the end of the input, bounded by its last index (see **Fig. 1**). We can formalize this operation between the filter vector *f* and the input vector *e* as follows: 
 
 $$
 e*f\rightarrow y[i] = \sum_{k=1}^m{e[i+k-1]\cdot f[k]}
@@ -280,7 +276,7 @@ In our implementation (**Section 3**), we'll be using the *same* padding strateg
 
 {% include figure.liquid loading="eager" path="assets/img/CNN_sentiment/convolution_1d.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 1**: One-dimensional convolution
 
-The convolution described previously for one-dimensional inputs works in exactly the same way for two-dimensional inputs (see **Fig. 2**). If $$E_{n_1\times n_2}$$ is the input matrix and $$F_{m_1\times m_2}$$ the filter where $$m_1\leq n_1$ and $m_2\leq n_2$$, for each stride we can compute our feature map as follows:
+The convolution described previously for one-dimensional inputs works in exactly the same way for two-dimensional inputs (see **Fig. 2**). If $$E_{n_1\times n_2}$$ is the input matrix and $$F_{m_1\times m_2}$$ the filter where $$m_1\leq n_1$$ and $$m_2\leq n_2$$, for each stride we can compute our feature map as follows:
 
 $$
 E*F\rightarrow y[i][j] = \sum_{k_1=1}^{m_1}\sum_{k_2=1}^{m_2}{e[i+k_{1}-1][j+k_{2}-1]\cdot f[k_1][k_2]}
