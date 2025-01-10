@@ -503,7 +503,7 @@ print(f"F1 score for test set: {f1_test}")
 
 There are many hyperparameters in the entire modeling process that we can adjust to achieve even better results. These include different layer sizes, filters, poolings, and more efficient optimization techniques. Typically, dropout is applied during the training of such models to prevent overfitting. It is also worthwhile to explore the possibility of using pre-trained embedding representations.
 
-The **Jupyter notebook** for this project can be found here: [https://github.com/omseeth/cnn_sentiment_analysis]( Preprocessing the dataset)
+The **Jupyter notebook** for this project can be found here: [https://github.com/omseeth/cnn_sentiment_analysis](https://github.com/omseeth/cnn_sentiment_analysis)
 
 ## References
 
