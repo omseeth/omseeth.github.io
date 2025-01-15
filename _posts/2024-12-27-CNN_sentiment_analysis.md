@@ -27,7 +27,7 @@ In this tutorial, we'll be using several different libraries. The following impo
 
 ```python 
 """In case the packages are not installed on your machine, let's begin with 
-installing the one that we'll need for our task. We can run commands with an 
+installing the ones that we'll need for our task. We can run commands with an 
 exclamation mark in Jupyter Notebooks."""
 
 !pip install datasets transformers tokenizers scikit-learn torch tqdm
@@ -107,7 +107,7 @@ Before we can use the data to train our model, we need to split up the sentences
 
 For our tokenization, we can use a subword tokenization algorithm that is called [Byte Pair Encoding (BPE)](https://huggingface.co/learn/nlp-course/en/chapter6/5), which was introduced in Sennrich et al. (2016) and is based on an algorithm introduced by Gage (1994). The motivation of this tokenization technique is to let the data decide what subword tokens we'll have. Another advantage of BPE is that it allows us to deal with unknown words that won't be part of the training vocabulary but might appear in test data. With BPE, unknown words can be decomposed into their respective subword parts and in this fashion still be processed.
 
-Instead of implementing the BPE tokenizer completely from scratch, we can use the [*tokenizers* package](https://pypi.org/project/tokenizers/). We also want to pad and truncate each text with a fixed sequence length. If text instances are short, we pad them with 0s; if they are long, we truncate them to the maximum length. This is will make the training and inference processes easier.
+Instead of implementing the BPE tokenizer completely from scratch, we can use the [tokenizers package](https://pypi.org/project/tokenizers/). We also want to pad and truncate each text with a fixed sequence length. If text instances are short, we pad them with 0s; if they are long, we truncate them to the maximum length. This will make the training and inference processes easier.
 
 ```python
 # We want to begin with only 5000 words in our vocabulary and a fixed sequence 
@@ -256,7 +256,7 @@ After having prepared our data, we can start with implementing our model. In thi
 
 A CNN is a fully connected network that operates similar to Feedforward Neural Networks (FNNs) in a feedforward fashion. The input is processed along layers and forwarded to the final layer, which can be used for predictions. The idea of a CNN is to consecutively extract salient features, such as shapes in terms of their respective pixels, building an abstract feature hierarchy for any given input. In this fashion, the model will be aligned through its training to reoccurring patterns, which it can "recognize." It's no surprise that CNNs were invented for handwritten digit recognition in images.
 
-The basic architecture of a CNN is as follows: For any given input, the CNN uses **convolutions**, that is, a **filter** (also called **kernel**) technique to extract local features from the input (e.g., pixels). After this filter has **shifted** over the whole input, the extractions are combined together into **feature maps** and then transformed with **pooling**. Pooling helps with singling out dominant features and allows to reduces the dimensions of the feature maps. This process can be repeated multiple times where additional filters can shift again over the pooled output from previous convolutions. Finally, for the last part of the network a FNN is used to produce logits for the desired task.
+The basic architecture of a CNN is as follows: For any given input, the CNN uses **convolutions**, that is, a **filter** (also called **kernel**) technique to extract local features from the input (e.g., pixels). After this filter has **shifted** over the whole input, the extractions are combined together into **feature maps** and then transformed with **pooling**. Pooling helps with singling out dominant features and allows to reduce the dimensions of the feature maps. This process can be repeated multiple times where additional filters can shift again over the pooled output from previous convolutions. Finally, for the last part of the network a FNN is used to produce logits for the desired task.
 
 One CNN layer consists of one convolutional and one pooling layer.
 
@@ -270,7 +270,7 @@ $$
 e*f\rightarrow y[i] = \sum_{k=1}^m{e[i+k-1]\cdot f[k]}
 $$
 
-In fact, the shift is a hyperparameter that can be set to any positive integer smaller than the input length. In those scenarios where the filter is very large and exceeds the input, we can pad the input with additional elements so that the filter operation would be possible. There a several padding strategies to avoid that elements from the middle of the input will be covered more frequently by the filter than those from the edges. 
+In fact, the filter size is a hyperparameter that can be set to any positive integer smaller than the input length. In those scenarios where the filter is very large and exceeds the input, we can pad the input with additional elements so that the filter operation would be possible. There a several padding strategies to avoid that elements from the middle of the input will be covered more frequently by the filter than those from the edges. 
 
 In our implementation (**Section 3**), we'll be using the *same* padding strategy, which adds zeros to the input on all sides so that the output of the filter operation can have the same size as the input. Therefore, the amount of padding will depend on the size of the filter(/kernel). Consider Raschka et al. (2022, p. 457) for further details.
 
@@ -302,13 +302,13 @@ LeCun et al. (1989) published their paper titled 'Handwritten Digit Recognition 
 
 #### Multiple channels
 
-In fact, the input to a CNN can be greater than one. If we're dealing with images that are encoded in terms of RGB colors, we can split up the input into three two-dimensional matrices corresponding to red, green, and blue color information and feed them to the CNN. Each input matrix would be called one **channel**. For this matter, in most CNN implementations the convolutional layers expect an input with **3 dimensions** where $$E_{n_1\times n_2 \times c_{in}}$$ would be the input of dimensions $$n_1\times n_2$$ times $$c_{in}$$, such as $$c_{in} = 3$$ for three different color matrices.
+The input to a CNN can be greater than one. If we're dealing with images that are encoded in terms of RGB colors, we can split up the input into three two-dimensional matrices corresponding to red, green, and blue color information and feed them to the CNN. Each input matrix would be called one **channel**. For this matter, in most CNN implementations the convolutional layers expect an input with **3 dimensions** where $$E_{n_1\times n_2 \times c_{in}}$$ would be the input of dimensions $$n_1\times n_2$$ times $$c_{in}$$, such as $$c_{in} = 3$$ for three different color matrices.
 
 The further processing of the input allows a lot of variability: Each $$c_{in}$$ input will have its own filter. The filters can be also stored as three-dimensional tensors: $$F_{m_1\times m_2 \times c_{in}}$$. Usually, the filtered results from each respective input will be element-wise added to create the output feature map. But sometimes it also helps to have multiple feature maps as outputs to capture different aspects from the input. In this case, the filters can be changed to four-dimensional tensors: $$F_{m_1\times m_2 \times c_{in}\times c_{out}}$$ where $$c_{out}$$ determines the numbers of feature maps that we want (see **Fig. 4**).
 
 {% include figure.liquid loading="eager" path="assets/img/CNN_sentiment/four_dim_filter.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 4**: Multiple filters (kernels) for three input channels, producing four feature maps
 
-Note, if we have for example four feature maps, we'll also need four pooling layers. As the size of convolutional layers changes we'll also have more parameters to train. This being said, remember that a FNN processing an input image of size would require weights of same size for its first layer. In contrast, the parameters of CNNs are bounded by the filter size. LeCun et al. (1989, p. 399) describe this aspect as "weight sharing" and note as one distinctive feature of CNNs that they significantly reduce the amount of parameters to be trained.
+Note, if we have for example four feature maps, we'll also need four pooling layers. As the size of convolutional layers changes we'll also have more parameters to train. This being said, remember that a FNN processing an input image would require weights of same size for its first layer. In contrast, the parameters of CNNs are bounded by the filter size. LeCun et al. (1989, p. 399) describe this aspect as "weight sharing" and note as one distinctive feature of CNNs that they significantly reduce the amount of parameters to be trained.
 
 ## Section 3) Implementing a CNN with PyTorch
 
@@ -346,7 +346,7 @@ class CNN_Classifier(nn.Module):
 
         # The input will be the reduced number of maximum picks from the
         # previous operation; the dimension of those picks is the same as the
-        # output chnall size from self.conv_1. We apply a different filter of 
+        # output channel size from self.conv_1. We apply a different filter of 
         # size 5.
         self.conv_2 = nn.Conv1d(100, 50, 5, padding="same")
 
@@ -366,7 +366,7 @@ class CNN_Classifier(nn.Module):
         Returns:
             y, float: The output are the logits from the final layer.
         """
-        # x will correspond here to a batch; there fore the input dimensions of 
+        # x will correspond here to a batch; therefore, the input dimensions of 
         # the embedding will be by PyTorch convention as follows:
         # [batch_size, seq_len, emb_dim]
         x = self.embedding(x)
