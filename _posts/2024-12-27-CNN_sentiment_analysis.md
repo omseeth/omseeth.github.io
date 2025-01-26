@@ -298,7 +298,7 @@ A pooling layer can be defined as $$P_{n_1 \times n_2}$$, where the subscript in
 
 A FNN usually consists of a layer that is defined as $$z=Wx + b$$ where $$W$$ are the weights and $$b$$ is an extra bias for input $$x$$. Such a layer is often wrapped by a non-linear activation function $$\sigma$$, as in $$A=\sigma (z)$$. We adapt the convolutional layer so that it resembles the previous FNN construction. Let $$c = E*F + b$$ be our layer with an additional bias term $$b$$. As with the FFN we can wrap an activation function $$\sigma$$ around $$c$$. In many CNN implementations, the ReLu activation function is used for this purpose.
 
-LeCun et al. (1989) published their paper titled 'Handwritten Digit Recognition with a Back-Propagation Network.' Let us now examine which parts of a CNN are trainable using back-propagation: the convolutional layers (filters), whose weights $$F$$ and biases $$b$$ (if included) can be updated through back-propagation, guided by a loss function and gradient optimization. Recall that most CNNs also include a final fully connected feedforward neural network (FNN) layer for producing the output, and this layer is trainable as well. However, the pooling layer is not involved in the training process, as it does not contain learnable parameters.
+LeCun et al. (1989) published their paper titled 'Handwritten Digit Recognition with a Back-Propagation Network.' Let us now examine which parts of a CNN are trainable using back-propagation. It's the convolutional layers (filters) with their weights $$F$$ and biases $$b$$ (if included) that can be updated through back-propagation, guided by a loss function and gradient optimization. Recall that most CNNs also include a final fully connected feedforward neural network (FNN) layer for producing the output, and this layer is trainable as well. However, the pooling layer is not involved in the training process, as it does not contain learnable parameters.
 
 #### Multiple channels
 
@@ -316,7 +316,7 @@ Let's begin with defining our classifier model. It's reasonable to use embedding
 
 To build an intuition for the whole process, let's think again of the input. The input is a sequence (a tweet) from our data. This sequence will be translated into its correspoding token representation based on our custom trained BPE encoder. In other words, any incoming sequence will be a tensor of different indices. Next, the indices are handed over to our embedding layer, which serves as a look-up table for all tokens in the vocabulary and assigns the embedding representation to the input indices. This layer is a simple linear layer that is going to be trained along with the whole network later on. The initial values of the embeddings are random numbers. 
 
-Up to this point, we can think of two strategies to run a first convolution over the input. If the input is 12 tokens long and each token has an embedding vector of size 300. The input to a potential convolutional layer would be $$12 \times 300$$. The first strategy could be to apply a two-dimensional filter striding over this input matrix. The second strategy would be to use a one-dimensional filter that is going over one embedding dimension per time for the whole sequence, that is, over $$12 \times 1$$ but with 300 channels for all embedding dimensions. If we want the output to be of the same length as the input, that is, 12, we need to pad the input to adjust for the filter length.
+Up to this point, we can think of two strategies to run a first convolution over the input. If the input is 12 tokens long and each token has an embedding vector of size 300, the input to a potential convolutional layer would be $$12 \times 300$$. The first strategy could be to apply a two-dimensional filter striding over this input matrix. The second strategy would be to use a one-dimensional filter that is going over one embedding dimension per time for the whole sequence, that is, over $$12 \times 1$$ but with 300 channels for all embedding dimensions. If we want the output to be of the same length as the input, that is, 12, we need to pad the input to adjust for the filter length.
 
 In our implementation, we shall try the second strategy. Remember that the input channels will all be added together so before having our 300 embedding dimensions shrunk to one, we shall define an appropriate output channel size for the convolution. In other words, we'll use as many as 100 filters for example to create an output of 100 dimensions for each respective input token.
 
@@ -382,10 +382,10 @@ class CNN_Classifier(nn.Module):
         x = nn.functional.relu(self.conv_1(x))
 
         # Applying max pooling of size 3 means that the output length of the 
-        # sequence is shrunk to seq_len\\3
+        # sequence is shrunk to seq_len//3
         x = self.pool_1(x)
 
-        # Output of the following layer: [batch_size, 50, seq_len\\3]
+        # Output of the following layer: [batch_size, 50, seq_len//3]
         x = nn.functional.relu(self.conv_2(x))
 
         # Shrinking the sequence length by 5
@@ -478,6 +478,8 @@ classifier.fit(train_instances, val_instances, epochs=5, batch_size=16)
 ```
 
 ```python
+100%|██████████| 1000/1000 [00:26<00:00, 37.29it/s]
+Epoch 1 train F1 score: 0.6349625340555586, validation F1 score: 0.5885997748733948
 100%|██████████| 1000/1000 [00:27<00:00, 36.16it/s]
 Epoch 2 train F1 score: 0.9181883927660527, validation F1 score: 0.8391332797173209
 100%|██████████| 1000/1000 [00:31<00:00, 31.86it/s]
