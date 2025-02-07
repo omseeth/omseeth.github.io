@@ -250,7 +250,7 @@ def batching(instances: list, batch_size: int, shuffle: bool):
 
 ## Section 2) Theoretical foundations of CNNs for classification
 
-After having prepared our data, we can start with implementing our model. In this tutorial, we'll be using a Convolutional Neural Network (CNN), which was first introduced in LeCun et al. (1989). This section is dedicated to the theoretical background of CNNs. In **Section 3**, we'll implement the model with PyTorch.
+After having prepared our data, we can start with implementing our model. In this tutorial, we'll be using a Convolutional Neural Network (CNN), which was introduced in LeCun et al. (1989). The CNN bears resemblance to the Neocognitron (Fukushima 1980) as well as Time-Delay Neural Networks (Waibel et al. 1989). This section is dedicated to the theoretical background of CNNs. In **Section 3**, we'll implement the model with PyTorch.
 
 #### The architecture of a CNN
 
@@ -509,6 +509,8 @@ The **Jupyter notebook** for this project can be found here: [https://github.com
 
 ## References
 
+Fukushima, K. (1980). Neocognitron: A self-organizing neural network model for a mechanism of pattern recognition unaffected by shift in position. *Biol. Cybernetics 36*, pages 193–202.
+
 Gage, P. (1994). A new algorithm for data compression. *C Users J.*, 12(2):23–38.
 
 LeCun, Y., Boser, B., Denker, J., Henderson, D., Howard, R., Hubbard, W., and Jackel, L. (1989).
@@ -525,3 +527,5 @@ Sennrich, R., Haddow, B., and Birch, A. (2016). Neural machine translation of ra
 subword units. In Erk, K. and Smith, N. A., editors, *Proceedings of the 54th Annual Meeting
 of the Association for Computational Linguistics (Volume 1: Long Papers)*, pages 1715–1725,
 Berlin, Germany. Association for Computational Linguistics
+
+Waibel, A., Hanazawa, T., Hinton, G., Shikano, K. and Lang, K. J. (1989). Phoneme recognition using time-delay neural networks. In *IEEE Transactions on Acoustics, Speech, and Signal Processing, vol. 37*, no. 3, pages 328-339.
