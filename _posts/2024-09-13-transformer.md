@@ -9,7 +9,7 @@ categories:
 
 Um die theoretische Grundlage zum Verständnis von Modellen wie GPT und BERT zu schaffen, umreiße ich in diesem Blogbeitrag einige Konzepte der Transformerarchitektur. Dazu diskutiere ich in **1** *feedforward* neuronale Netze. In Abschnitt **2** beschreibe ich rekurrente neuronale Netze mit einer Enkodierer-Dekodierer-Architektur und dem ersten Aufmerksamkeitsmechanismus. In **3** führe ich alle Elemente zusammen, um ein Transformer-Modell zu beschreiben. Abschließend gehe ich in **4** auf einige Aspekte der GPT-Modelle und BERTs ein.
 
-Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über ihre historische Genese erklärt werden, deshalb empfehle ich die Abschnitte **1** und **2** nachzuvollziehen, wobei das Augenmerk hier auf der Verarbeitung von Sequenzen mit einer Enkodierer-Dekodierer-Struktur liegen sollte. Zum anderen liegt den Transformer-Modellen ein 'neuer' (d.h. für das Jahr 2017 neuer) Selbstaufmerksamkeitsmechanismus zugrunde, bei welchem sich auch ein mathematisches Verständnis lohnt. Einmal mehr wird es hoffentlich für die Leserschaft nicht schwierig sein, diesen zu verstehen, sobald ein Gespür für vorangegangene Aufmerksamkeitsmechanismen da ist. Dieser Blogeintrag soll eine Hilfe sein, um Transformer-Modell zu verstehen. Nichtsdestotrotz empfehle ich die zitierten Veröffentlichungen ebenfalls zu lesen. Eine chronologische Lektüre ist dazu sinnvoll.
+Dieser Beitrag verfolgt zwei Ziele. Zum einen sollen Transformer-Modelle über ihre historische Genese erklärt werden, deshalb empfehle ich die Abschnitte **1** und **2** nachzuvollziehen, wobei das Augenmerk hier auf der Verarbeitung von Sequenzen mit einer Enkodierer-Dekodierer-Struktur liegen sollte. Zum anderen liegt den Transformer-Modellen ein 'neuer' (d.h. für das Jahr 2017 neuer) Selbstaufmerksamkeitsmechanismus zugrunde, bei welchem sich auch ein mathematisches Verständnis lohnt. Einmal mehr wird es hoffentlich für die Leserschaft nicht schwierig sein, diesen zu verstehen, sobald ein Gespür für vorangegangene Aufmerksamkeitsmechanismen da ist. Dieser Blogeintrag soll eine Hilfe sein, um Transformer-Modelle zu verstehen. Nichtsdestotrotz empfehle ich die zitierten Veröffentlichungen ebenfalls zu lesen. Eine chronologische Lektüre ist dazu sinnvoll.
 
 ## 1 *Feedforward* neuronale Netze
 
@@ -26,7 +26,7 @@ Das Konvolut an verknüpften Funktionen eines neuronalen Netztes umfasst auch ni
     h_{linear} := W \cdot x + b
 \end{equation}
 \begin{equation}
-    h_{non-linear} := \sigma(W \cdot x + b)
+    h_{nicht-linear} := \sigma(W \cdot x + b)
 \end{equation}
 wobei $$W$$ eine Matrix mit Gewichten, $$x$$ die Eingabe, $$b$$ zusätzliche Biases, und $$\sigma$$ eine Aktivierungsfunktion (z.B: *Sigmoid*, *Tanh*, *Softmax*) sind. Ein neuronales Netz wird als *feedforward* bezeichnet, wenn von der Eingabe bis zur Ausgabe des Informationsflusses keine Form von Feedback berücksichtigt wird (Goodfellow et al. 2016). 
 
