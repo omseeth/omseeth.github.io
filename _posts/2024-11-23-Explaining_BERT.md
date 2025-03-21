@@ -142,7 +142,7 @@ We have many columns with different data, including the sentences, the participa
 
 Which translates to:
 
-``Women belong to the kitchen.``
+``Women belong in the kitchen.``
 
 The experiment's first subject clicked on the tokens: "Frauen" and "Küche" (see column ``Clicked``) to justify her judgement of the sentence, which was 'hate'. Since the dataset has 35 columns they might not all be displayed in your IDE and you won't see all columns right away.
 
