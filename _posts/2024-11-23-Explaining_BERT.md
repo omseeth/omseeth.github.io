@@ -369,6 +369,8 @@ torch.Size([13, 768])
 
 ## Deriving explanations through attributions with LIME
 
+LIME analyze how changes to the input affect the model's predictions. It creates a local linear approximation for each instance by making small modifications to the input and observing the resulting changes in output. The weights from this linear model indicate the importance of each token, serving as saliency scores. The original paper (Ribeiro et al. 2016) introducing LIME can be found here: [https://dl.acm.org/doi/10.1145/2939672.2939778](https://dl.acm.org/doi/10.1145/2939672.2939778).
+
 In this part of the project, we will make use of the [Captum](https://captum.ai) library to investigate how the BERT model made its predictions. Captum is built on PyTorch and an excellent library for many explainability methods in machine learning. As we want to implement LIME for text, the following approach is built upon the Captum [tutorial](https://captum.ai/tutorials/Image_and_Text_Classification_LIME) for LIME. For analyzing texts, we need to use the LimeBase version. The documentation can be found here: [https://captum.ai/api/lime.html](https://captum.ai/api/lime.html).
 
 Captum's LimeBase requires to define several parts of the LIME approach manually. We shall start with this.
@@ -477,9 +479,9 @@ with open("BERT_LIME_attributions.json", "w") as file:
 
 ## Deriving explanations through attributions with Saliency
 
-It is reasonable to use another explainability method because these methods can differ with respect to models and datasets (consider Atanasova et al. (2020)). In what follows, we will implement Saliency for our BERT model and data.
+It is reasonable to use another explainability method because these methods can differ with respect to models and datasets (consider Atanasova et al. (2020)). In what follows, we will implement Saliency for our BERT model and data. The method was introduced in this paper (Simonyan et al. 2013): [https://arxiv.org/abs/1312.6034](https://arxiv.org/abs/1312.6034).
 
-Saliency is a gradient based explainability approach. Unfortunately, it requires a little different set-up for our BERT model. We need to change our predict function for BERT; instead of letting it make predictions from the encodings, it needs to base its predictions on the embeddings from the final hidden states of the BERT model.
+Saliency is a gradient based explainability approach. Gradient-based methods generate saliency maps by calculating the gradient of the output with respect to the input. Unfortunately, it requires a little different set-up for our BERT model. We need to change our predict function for BERT; instead of letting it make predictions from the encodings, it needs to base its predictions on the embeddings from the final hidden states of the BERT model.
 
 ```python
 def predict_new(embeddings, mask):
@@ -752,6 +754,12 @@ process_and_plot_heatmaps(human_rationales, correct_prediction_labels, BERT_rati
 Pepa Atanasova, Jakob Grue Simonsen, Christina Lioma, and Isabelle Augenstein. 2020. A diagnostic
 study of explainability techniques for text classification. In *Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)*, pages 3256–3274, Online. Association for Computational Linguistics.
 
+Marco Tulio Ribeiro, Sameer Singh, and Carlos Guestrin. 2016. "why should i trust you?": Explain-
+ing the predictions of any classifier. In *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, KDD ’16, page 1135–1144, New York, NY, USA. Association for Computing Machinery.
+
 Sarthak Roy, Ashish Harshvardhan, Animesh Mukherjee, and Punyajoy Saha. 2023. Probing LLMs for hate speech detection: strengths and vulnerabilities. In *Findings of the Association for Computational Linguistics: EMNLP 2023*, pages 6116–6128, Singapore. Association for Computational Linguistics.
+
+Karen Simonyan, Andrea Vedaldi, and Andrew Zisserman. 2013. Deep inside convolutional networks:
+Visualising image classification models and saliency maps. *CoRR*, abs/1312.6034.
 
 The **Jupyter notebook** for this project can be found here: [https://github.com/omseeth/explaining_BERT_with_LIME_Saliency](https://github.com/omseeth/explaining_BERT_with_LIME_Saliency)
