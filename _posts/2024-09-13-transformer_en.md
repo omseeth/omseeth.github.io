@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Transformer models such as GPT and BERT explained (English version)
+title: A deep dive into Transformer models like GPT and BERT (English version)
 date: 2024-09-13 16:40:16
 description: From neural networks to GPT and BERT, a contextualized explanation of the Transformer architecture
 tags: machine learning neural nets feed-forward attention-mechanism Transformer GPT BERT transfer-learning English
