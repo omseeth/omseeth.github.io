@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'nokogiri'
+
 group :jekyll_plugins do
     gem 'classifier-reborn'
     gem 'jekyll'
