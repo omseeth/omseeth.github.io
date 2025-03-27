@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How SoftBank’s Pepper Set a Positive Example for Gender Design in Robotics
+title: How SoftBank’s Pepper set a positive example for gender design in robotics
 date: 2025-03-26 10:00:00
 description: This text explores the assignment of gender to robots
 tags: robotics robots genders identities development engineering design
