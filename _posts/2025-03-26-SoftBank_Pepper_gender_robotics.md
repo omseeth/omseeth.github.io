@@ -148,8 +148,7 @@ Langdon Winner. 2020. Do Artifacts Have Politics? In *The Whale and the Reactor*
 University of Chicago Press, pp. 19-39.
 
 World Bank. 2020a. Employment in services, female (% of female employment) (modeled 
-ILO estimate). In *World Bank*, viewed 15 April 2020 <https://data.worldbank.org
-/indicator/SL.SRV.EMPL.FE.ZS>.
+ILO estimate). In *World Bank*, viewed 15 April 2020 <https://data.worldbank.org/indicator/SL.SRV.EMPL.FE.ZS>.
 
 World Bank. 2020b. Employment in services, female (% of female employment) (modeled 
 ILO estimate) - Japan, United States. In *World Bank*, viewed 15 April 2020, <https://data.worldbank.org/indicator/SL.SRV.EMPL.FE.ZS?contextual=default&locations=JP-US>. 
