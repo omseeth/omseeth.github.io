@@ -61,7 +61,9 @@ After outlining the concept of gender and identifying gendered traits in Pepper,
 
 However, another study only reports an effect of gender when the experiment’s humanoid NAO was introduced with the gendered pronouns “he” or “she”, but “no main effects of robot gender on participant rating” for Aldebaran’s humanoid with respect to engagement and relaxation in a different setting (Rea et al. 2015). This is an interesting finding, which raises the question of to what extent a childlike-looking humanoid like NAO, which was roughly 60 cm tall, is perceived in contrast to Pepper, and in general, how humanlike a robot would need to look and behave to incur gendered assumptions on the users’ side.
 
-If we consider the gender theoretical groundwork, then the inherent dynamism of intelligible gender identities implies that non-intelligible, even abject, bodies will always be necessary. This means that the dialectical construction of identity will ultimately prevent the complete neutralization of gender. However, contrary to this assumption, Stanford's *Gendered Innovations* initiative explores designing genderless robots as a potential solution.$$^4$$ But even in their suggestions for non-gendered robots, they mainly refer to child-like or non-humanoid examples.
+However, another study only reports an effect of gender when the experiment’s humanoid NAO was introduced with the gendered pronouns “he” or “she”, but “no main effects of robot gender on participant rating” for Aldebaran’s humanoid with respect to engagement and relaxation in a different setting (Rea et al. 2015). This is an interesting finding, which raises the question of to what extent a childlike-looking humanoid like NAO, which was roughly 60 cm tall, is perceived in contrast to Pepper, and in general, how humanlike a robot would need to look and behave to incur gendered assumptions on the users’ side.$$^4$$ 
+
+If we consider the gender theoretical groundwork, then the inherent dynamism of intelligible gender identities implies that non-intelligible, even abject, bodies will always be necessary. This means that the dialectical construction of identity will ultimately prevent the complete neutralization of gender. However, contrary to this assumption, Stanford's *Gendered Innovations* initiative explores designing genderless robots as a potential solution.$$^5$$ But even in their suggestions for non-gendered robots, they mainly refer to child-like or non-humanoid examples.
 
 To escape the violence of gendering, humanoids should hence be continuously re-gendered, incorporating ever-evolving designs that reflect a critical engagement with gender. Similarly, Tanja Kubes argues that after de-gendering robots, redesigning them can unlock “an enormous potential for exploiting the emancipatory possibilities of sexbots” (Kubes 2019, p. 70). This ongoing exploration of possibilities should serve as a guiding design principle.
 
@@ -97,7 +99,11 @@ $$^2$$ Some documentation of the speech module can be found here: [http://doc.al
 
 $$^3$$ 60% of all women working worldwide are employed in services (World Bank, 2020a), the ratio for developed countries is even higher: in 2019 about 83% of all employed women in Japan and 90% in the United States were employed in services (World Bank 2020b).
 
-$$^4$$ Consider [https://genderedinnovations.stanford.edu/case-studies/genderingsocialrobots.html](https://genderedinnovations.stanford.edu/case-studies/genderingsocialrobots.html)
+$$^4$$ NAO at Deutsches Museum, Munich, 2025:
+
+{% include figure.liquid loading="eager" path="assets/img/SoftBank_Pepper/NAO_2025.JPG" class="img-fluid mx-auto d-block" width="40%" %}
+
+$$^5$$ Consider [https://genderedinnovations.stanford.edu/case-studies/genderingsocialrobots.html](https://genderedinnovations.stanford.edu/case-studies/genderingsocialrobots.html)
 
 
 ## Bibliography
