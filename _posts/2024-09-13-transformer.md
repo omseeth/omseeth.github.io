@@ -163,13 +163,15 @@ Denn Vaswani et al. (2017) überführen jedes $$x^{i}$$ in ein Tripel aus ($$v^{
 \begin{equation}
     \omega_{ij} = q^{(i)T}k^{j}
 \end{equation}
+Die Aufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$).
+
 Kurz: Neben der Aufmerksamkeit einer Eingabe $$x^i$$ gegenüber allen anderen Eingaben innerhalb einer Sequenz $$X$$ wird die Selbstaufmerksamkeit noch durch verschiedene Darstellungen aller $$x^j \in X$$ in Form der Abfrage-, Schlüssel-, Wertrepräsentationen berechnet. Die Selbstaufmerksamkeit kann auch als Scoring-Mechanismus beschrieben werden, der die Relevanz von benachbarten Token für jeden Token bestimmt (siehe **Fig. 8:**).
 
 {% include figure.liquid loading="eager" path="assets/img/attention_mechanism_ger.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 8:** Aufmerksamkeitsmechanismus als Score zur Bestimmung der Relevanz von Token aus dem Kontext
 
 {% include figure.liquid loading="eager" path="assets/img/projection_matrices_ger.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 9:** Aufmerksamkeit für eine Eingabe X mit mehreren Köpfen (*heads*)
 
-Die Aufmerksamkeitsgewichte werden abschließend mit der Dimension der *Embeddings* noch skaliert ($$\frac{\omega_{ij}}{\sqrt{d}}$$) und können $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 9** und **Fig. 5**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (14)) die für die zusätzliche Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
+Die Aufmerksamkeit kann $$h$$-Mal parallel berechnet, wobei $$h$$ einer gewählten Anzahl an Köpfen (auch *Attention Heads* gennant) entspricht. Vaswani et al. (2017) wählen $$h=8$$ Köpfe, deren Werte konkateniert abschließend der *Layer*-Normalisierung in den Kodierern weitergereicht werden (siehe **Fig. 9** und **Fig. 5**). Die Verwendung mehrerer Köpfe wird als '*Multi-head Attention*' bezeichnet. Die zusätzliche Skalierung begründen Vaswani et al. (2017, S. 4) mit der Beobachtung, dass zu große Werte der Skalarprodukte (vgl. (14)) die für die zusätzliche Normalisierung genutzte *Softmax*-Funktion in einen Bereich führen, der beim Lernen in sehr kleine Gradienten resultiert.
 
 #### 3.4 Der Transformer-Dekodierer
 
