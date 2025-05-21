@@ -163,15 +163,15 @@ Vaswani et al. (2017) transform each $$x^{i}$$ into a triple of ($$v^{i}$$, $$k^
 \begin{equation}
     \omega_{ij} = q^{(i)T}k^{j}
 \end{equation}
-Finally, the attention weights are scaled with the dimension of the embeddings ($$\frac{\omega_{ij}}{\sqrt{d}}$$).
+Finally, the attention weights are scaled with the dimension of the embeddings ($$\frac{\omega_{ij}}{\sqrt{d}}$$). Vaswani et al. (2017, p. 4) justify the additional scaling with the observation that too large values of the scalar products (see (14)) lead the softmax function used for additional normalization into a range that results in very small gradients during learning.
 
 In short: In addition to the attention of an input $$x^i$$ to all other inputs within a sequence $$X$$, the self-attention is calculated by different representations of all $$x^j \in X$$ in the form of query, key and value representations. Self-attention can be also described as a scoring mechanism that determines the relevance of neighboring tokens for each token (consider **Fig. 8**).
 
 {% include figure.liquid loading="eager" path="assets/img/attention_mechanism_en.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 8:** Attention mechanism as a score to determine relevance of tokens from context
 
-{% include figure.liquid loading="eager" path="assets/img/projection_matrices_en.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 9:** Attention for input $$X$$ with multiple heads
+Attention can be calculated $$h$$ times in parallel, where $$h$$ corresponds to a selected number of heads (also called attention heads). Vaswani et al. (2017) choose $$h=8$$ heads, whose values are concatenated and finally passed on to the layer normalization in the coders (see **Fig. 9** and **Fig. 5**). The use of multiple heads is referred to as 'multi-head attention'.
 
-Finally, attention can be calculated $$h$$ times in parallel, where $$h$$ corresponds to a selected number of heads (also called attention heads). Vaswani et al. (2017) choose $$h=8$$ heads, whose values are concatenated and finally passed on to the layer normalization in the coders (see **Fig. 9** and **Fig. 5**). The use of multiple heads is referred to as 'multi-head attention'. Vaswani et al. (2017, p. 4) justify the additional scaling with the observation that too large values of the scalar products (see (14)) lead the softmax function used for additional normalization into a range that results in very small gradients during learning.
+{% include figure.liquid loading="eager" path="assets/img/projection_matrices_en.png" class="img-fluid mx-auto d-block" width="80%" %}**Fig. 9:** Attention for input $$X$$ with multiple heads
 
 #### 3.4 The Transformer decoder
 
