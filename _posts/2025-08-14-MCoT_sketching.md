@@ -7,21 +7,18 @@ tags: MCoT, CoT, MLLM, reasoning, sketching, drawing
 categories: 
 ---
 
-**Abstract** This paper explores adding sketching to Multimodal Chain-of-Thought (MCoT)
+**Abstract** This article explores adding sketching to Multimodal Chain-of-Thought (MCoT)
 reasoning to enhance AI capabilities. It reviews current methods, identifies key
 gaps such as the lack of sketch-rationale datasets, and proposes advancing the field
 through targeted data collection, unified multimodal models, and reinforcement
-learning. Applications span education, interactive agents, and embodied AI. Ethi-
-cal considerations include mitigating cultural bias, visual misrepresentation, and
-inaccuracies in generated sketches.
+learning. Applications span education, interactive agents, and embodied AI. Ethical considerations include mitigating cultural bias, visual misrepresentation, and inaccuracies in generated sketches.
 
 ## 1 Introduction
 
 Drawing and sketching are cognitive tools that humans use not only to express and communicate
 thoughts, but also to generate new ones [6]. For this matter, we would like to equip any intelligent
 system with the same ability to improve and help it communicate its reasoning. First steps in this
-direction have been proposed within the field of Multimodal Chain-of-Thought (MCoT) where reason-
-ing steps are enriched with data from different modalities, such as visuals. Therefore, future research on sketching should advance the design of MCoT reasoning strategies. Improving Multimodal Large Language Models (MLLMs) that perform such cross-modal reasoning is also relevant.
+direction have been proposed within the field of Multimodal Chain-of-Thought (MCoT) where reasoning steps are enriched with data from different modalities, such as visuals. Therefore, future research on sketching should advance the design of MCoT reasoning strategies. Improving Multimodal Large Language Models (MLLMs) that perform such cross-modal reasoning is also relevant.
 
 The present text outlines the motivation why sketching should be incorporated into CoT in Section 2.
 Several related works that use images and even sketches to aid models in reasoning are introduced
