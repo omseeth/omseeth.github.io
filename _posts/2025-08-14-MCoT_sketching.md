@@ -20,13 +20,7 @@ thoughts, but also to generate new ones [6]. For this matter, we would like to e
 system with the same ability to improve and help it communicate its reasoning. First steps in this
 direction have been proposed within the field of Multimodal Chain-of-Thought (MCoT) where reasoning steps are enriched with data from different modalities, such as visuals. Therefore, future research on sketching should advance the design of MCoT reasoning strategies. Improving Multimodal Large Language Models (MLLMs) that perform such cross-modal reasoning is also relevant.
 
-The present text outlines the motivation why sketching should be incorporated into CoT in Section 2.
-Several related works that use images and even sketches to aid models in reasoning are introduced
-in Section 3. Finally, Section 4 proposes directions for future research: a new dataset combining
-sketches with reasoning chains, advancements of unified MLLMs for MCoT, in particular with
-diffusion models, as well as the usage of reinforcement learning for existing MCoT approaches, such
-as rewards with Reinforcement Learning with Verifiable Rewards (RLVR) [9] and Group Relative
-Policy Optimization (GRPO) [28], both for textual and visual reasoning.
+The present text outlines the motivation why sketching should be incorporated into CoT in **Section 2**. Several related works that use images and even sketches to aid models in reasoning are introduced in **Section 3**. Finally, **Section 4** proposes directions for future research: a new dataset combining sketches with reasoning chains, advancements of unified MLLMs for MCoT, in particular with diffusion models, as well as the usage of reinforcement learning for existing MCoT approaches, such as rewards with Reinforcement Learning with Verifiable Rewards (RLVR) [9] and Group Relative Policy Optimization (GRPO) [28], both for textual and visual reasoning.
 
 ## 2 Motivation to incorporate drawing capabilities into AI
 
@@ -142,7 +136,7 @@ reasoning has shown that RL leads to improvements [9, 27, 43]. Therefore, MCoT s
 with Direct Preference Optimization (DPO) [26], Reinforcement Learning with Verifiable Rewards
 (RLVR) [9] and Group Relative Policy Optimization (GRPO) [28] strategies. One straight-forward
 application would be to use RLVR with GRPO, following Deepseek’s R1 [9], to reward accuracy
-(Racc) and format (Rf ormat) for rationales and answers based on generated sketches.
+($$R_{acc}) and format ($$R_{format}$$) for rationales and answers based on generated sketches.
 
 An appropriate reward for the generation of sketches could leverage AR-GRPO for autoregressive
 MLLMs [40]. AR-GRPO realizes rewards for the generation of images with a multi-faceted reward
