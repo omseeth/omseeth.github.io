@@ -136,7 +136,7 @@ reasoning has shown that RL leads to improvements [9, 27, 43]. Therefore, MCoT s
 with Direct Preference Optimization (DPO) [26], Reinforcement Learning with Verifiable Rewards
 (RLVR) [9] and Group Relative Policy Optimization (GRPO) [28] strategies. One straight-forward
 application would be to use RLVR with GRPO, following Deepseek’s R1 [9], to reward accuracy
-($$R_{acc}) and format ($$R_{format}$$) for rationales and answers based on generated sketches.
+($$R_{acc}$$) and format ($$R_{format}$$) for rationales and answers based on generated sketches.
 
 An appropriate reward for the generation of sketches could leverage AR-GRPO for autoregressive
 MLLMs [40]. AR-GRPO realizes rewards for the generation of images with a multi-faceted reward
