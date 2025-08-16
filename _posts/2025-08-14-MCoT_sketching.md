@@ -11,7 +11,7 @@ categories:
 reasoning to enhance AI capabilities. It reviews current methods, identifies key
 gaps such as the lack of sketch-rationale datasets, and proposes advancing the field
 through targeted data collection, unified multimodal models, and reinforcement
-learning. Applications span education, interactive agents, and embodied AI. Ethical considerations include mitigating cultural bias, visual misrepresentation, and inaccuracies in generated sketches.
+learning. Applications span education, interactive agents, and embodied AI. Ethical considerations include mitigating cultural bias, and visual misrepresentation in generated sketches.
 
 ## 1 Introduction
 
@@ -66,7 +66,7 @@ Fusing text and image features from the input improves performance, but the syst
 new visual content. This limits applicability to reasoning scenarios that benefit from active visual
 exploration, such as diagram construction in geometry or mechanical design tasks.
 
-Meng et al. [19] extend CoT by having an LLM produce symbolic sketch-like diagrams (e.g., SVG),
+Meng et al. [19] extend CoT by having an LLM produce symbolic sketch-like diagrams (e.g., with SVG),
 rendered into images and re-encoded for reasoning. Their ’think image by image’ approach helps, for
 example, with geometric tasks. However, this gain comes at the cost of operational complexity: the
 pipeline depends on separate LLMs, rendering engines, and encoders, creating latency and integration
@@ -207,7 +207,7 @@ Finally, all components $$P$$, $$Q$$, $$A$$, and $$R$$ can be enriched with mult
 {
     "instruction": "Find proofs for geometry problems.",
     "query": "Prove the angles of ABC provided in the attached image sum to 180. <image> VT_011 VT_115 VT_563 VT_101 ... VT_909 </image>",
-    "rationale": "<think> I need figure out how ABC are related in the image. The image shows a triangle. I need to prove that the angles of the triangle sum to 180. To find an answer, I draw a triangle: Let's call it ABC. <sketch> VT_421 VT_105 VT_983 VT_002 ... VT_778 </sketch> I extend the sides from A to B, from A to C, and from B to C. <sketch> VT_421 VT_105 VT_983 VT_001 ... VT_708 </sketch> I draw a line parallel to AB through point C. <sketch> VT_420 VT_105 VT_983 VT_001 ... VT_718 </sketch> <observe> The angles at point C created by the parallel line correspond to the interior angles at points A and B. When I add those angles up, they form a straight line at point C, which measures 180. Since those angles correspond exactly to the three interior angles of the triangle, the sum of the interior angles is 180. </observe> This is prove follows from the alternate interior angles theorem. </think>",
+    "rationale": "<think> I need to figure out how ABC are related in the image. The image shows a triangle. I need to prove that the angles of the triangle sum to 180. To find an answer, I draw a triangle: Let's call it ABC. <sketch> VT_421 VT_105 VT_983 VT_002 ... VT_778 </sketch> I extend the sides from A to B, from A to C, and from B to C. <sketch> VT_421 VT_105 VT_983 VT_001 ... VT_708 </sketch> I draw a line parallel to AB through point C. <sketch> VT_420 VT_105 VT_983 VT_001 ... VT_718 </sketch> <observe> The angles at point C created by the parallel line correspond to the interior angles at points A and B. When I add those angles up, they form a straight line at point C, which measures 180. Since those angles correspond exactly to the three interior angles of the triangle, the sum of the interior angles is 180. </observe> This proof follows from the alternate interior angles theorem. </think>",
     "answer": "The alternate interior angles theorem shows that all angles at point C created by the parallel line sum to 180. They further correspond to the interior angles at points A and B. Therefore, the angles of ABC provided in the attached image sum to 180."
 }
 ``
