@@ -47,7 +47,7 @@ never larger than 30 rows by 30 columns, with each cell taking on one of ten pos
 output grid is expected to be completely deducible on the basis of the properties of the input grid.
 Two guesses are allowed to pass each ARC test.
 
-{% include figure.liquid loading="eager" path="assets/img/ARC/arc_agi.png" class="img-fluid mx-auto d-block" width="90%" %}**Figure 1:** Example of an ARC 2D puzzle with demonstration pairs and another test input to be solved. The figure is from [12].
+{% include figure.liquid loading="eager" path="assets/img/ARC/arc_agi.jpg" class="img-fluid mx-auto d-block" width="90%" %}**Figure 1:** Example of an ARC 2D puzzle with demonstration pairs and another test input to be solved. The figure is from [12].
 
 Most importantly, the benchmark is designed to resist memorization and instead reward strong
 generalization skills. Each task is unique and follows its own logic, yet still allows participants to infer the underlying procedure needed to solve it. To limit brute-force learning, ARC-AGI-1 is kept deliberately small. It consists of 1,000 tasks divided into four splits: (1) a public training set of 400 examples, (2) a public evaluation set of 400 similar but more challenging tasks, (3) a semi-private evaluation set of 100 tasks, and (4) a fully private evaluation set of 100 tasks to prevent leakage. The challenge also imposes computational constraints: competitive submissions must run in a single Kaggle notebook, with a maximum of 12 hours on one P100 GPU.
