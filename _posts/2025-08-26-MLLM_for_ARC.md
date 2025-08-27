@@ -7,25 +7,21 @@ tags: ARC, MLLM, reasoning, multimodal, 2D, 1D
 categories: 
 ---
 
-**Abstract** This paper examines approaches to the Abstract Reasoning Corpus (ARC-AGI),
+**Abstract** This article examines approaches to the Abstract Reasoning Corpus (ARC-AGI),
 a benchmark of human-like reasoning. While symbolic program synthesis and
 transductive neural methods complement each other, both are constrained by
 sequential, language-based representations. I contribute by (1) critically reviewing
 these methods, (2) drawing on cognitive science to show that reasoning can extend
 beyond language, and (3) outlining research directions for multimodal models that
 integrate visual and linguistic reasoning. By framing multimodality as essential for
-ARC, the paper highlights a path toward more flexible and human-like AI.
+ARC, the article highlights a path toward more flexible and human-like AI.
 
 ## 1 Introduction
 
 Artificial intelligence has made remarkable progress in domains such as language understanding or
 pattern recognition. Yet, the quest to develop systems that demonstrate the kind of flexible, general reasoning observed in humans remains unresolved. The Abstract Reasoning Corpus (ARC-AGI) [11] was designed to probe this gap, presenting tasks that resist memorization and instead reward adaptive reasoning and generalization. These puzzles, simple for most humans yet challenging for current AI models, provide a lens through which to examine whether AI can capture the cognitive priors underlying human intelligence.
 
-This paper investigates how different reasoning paradigms – symbolic program synthesis, transductive
-neural predictions, and multimodal extensions – can be combined to tackle the ARC-AGI challenge.
-Recent advances have demonstrated the complementarity of inductive and transductive approaches
-[28], suggesting that no single style of reasoning suffices for the diversity of problems embodied in ARC. Building on these insights, I argue that expanding beyond purely linguistic reasoning toward
-multimodal architectures may prove critical since ARC puzzles are inherently visual.
+This article investigates how different reasoning paradigms – symbolic program synthesis, transductive neural predictions, and multimodal extensions – can be combined to tackle the ARC-AGI challenge. Recent advances have demonstrated the complementarity of inductive and transductive approaches [28], suggesting that no single style of reasoning suffices for the diversity of problems embodied in ARC. Building on these insights, I argue that expanding beyond purely linguistic reasoning toward multimodal architectures may prove critical since ARC puzzles are inherently visual.
 
 ## 2 The Abstract Reasoning Corpus (ARC) challenge and related work
 
@@ -178,9 +174,7 @@ Ultimately, we want models that reason with different modal inputs and based on 
 ### 4.1 Solving ARC-AGI-1 with multimodal models
 
 To explore whether multimodal capabilities can improve a model’s predictive performance on ARC
-puzzles, one could adopt a strategy similar to the combination of induction and transduction proposed by Li et al. [28]. Rather than ensembling an inductive and a transductive model, this approach would ensemble a purely linguistic LLM with a MLLM that processes both text and vision inputs. If the hypothesis of this paper is correct – that visual reasoning differs from linguistic reasoning and can support more accurate predictions of ARC grids – then comparing an LLM with a VLM
-should also yield complementary results. While prior work with GPT-4V [47] has not shown success,
-a comparison involving more recent models such as the LLMs Qwen2.5 [48] or Mistral Large 2
+puzzles, one could adopt a strategy similar to the combination of induction and transduction proposed by Li et al. [28]. Rather than ensembling an inductive and a transductive model, this approach would ensemble a purely linguistic LLM with a MLLM that processes both text and vision inputs. If the hypothesis of this article is correct – that visual reasoning differs from linguistic reasoning and can support more accurate predictions of ARC grids – then comparing an LLM with a VLM should also yield complementary results. While prior work with GPT-4V [47] has not shown success, a comparison involving more recent models such as the LLMs Qwen2.5 [48] or Mistral Large 2
 [32] and their multimodal counterparts, Qwen2.5-VL [7] or Pixtral Large [33], would be valuable.
 Eventually, the question would be if a multimodal VLM alone could suffice to solve ARC puzzles.
 
@@ -212,7 +206,7 @@ Beyond technical concerns, a deeper question arises about ARC’s validity as a 
 ## Conclusion
 
 Solving the ARC-AGI challenge requires moving beyond single paradigms. Symbolic program
-synthesis and transductive prediction demonstrate clear complementarities, but their current reliance on sequential, language-based encodings limits their ability to fully capture the visual and structural nature of ARC puzzles. This paper has argued that multimodal reasoning offers a path forward: by integrating visual, algorithmic, and transductive strategies within unified models, we can move closer to the kind of flexible, general intelligence that ARC is designed to probe.
+synthesis and transductive prediction demonstrate clear complementarities, but their current reliance on sequential, language-based encodings limits their ability to fully capture the visual and structural nature of ARC puzzles. This article has argued that multimodal reasoning offers a path forward: by integrating visual, algorithmic, and transductive strategies within unified models, we can move closer to the kind of flexible, general intelligence that ARC is designed to probe.
 
 Looking ahead, multimodal approaches should be systematically evaluated against purely linguistic
 models, not only in terms of accuracy but also in terms of error profiles, interpretability, and robustness across different puzzle types. Future ARC iterations such as ARC-AGI-2 and ARC-AGI-3 will provide fertile ground for such experiments, especially as they introduce new puzzles and interactive elements that align naturally with embodied and multimodal reasoning.
