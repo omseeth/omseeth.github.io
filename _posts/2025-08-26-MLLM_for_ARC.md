@@ -145,7 +145,7 @@ The experiments by Xu et al. [47] show that the current Transformer architecture
 which underpins GPT-4 and most other LLMs applied to ARC [18, 28], is biased toward sequential
 tasks. They further demonstrate that performance improves significantly when the puzzles’ visual
 representations are converted into quasi-linguistic forms. This suggests that models not constrained
-to 1D sequential data, and capable of processing visual inputs, would well suited for solving puzzles from ARC-AGI-1.
+to 1D sequential data, and capable of processing visual inputs, would be well suited for solving puzzles from ARC-AGI-1.
 
 ### 3.3 Multimodal reasoning models
 
