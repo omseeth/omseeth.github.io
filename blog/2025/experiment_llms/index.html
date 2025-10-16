@@ -28,7 +28,7 @@
 </span>    <span class="n">device_map</span> <span class="o">=</span> <span class="sh">"</span><span class="s">auto</span><span class="sh">"</span><span class="p">,</span> <span class="c1"># Auto place model on GPU if available
 </span><span class="p">)</span>
 
-<span class="n">prompt</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Explain what a high performance computer is.</span><span class="sh">"</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="sh">"</span><span class="s">Explain what a high performance cluster is.</span><span class="sh">"</span>
 
 <span class="n">inputs</span> <span class="o">=</span> <span class="nf">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="sh">"</span><span class="s">pt</span><span class="sh">"</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">device</span><span class="p">)</span>
 
