@@ -18,7 +18,7 @@ After having created an account on vast.ai, charge your credit with 5€-10€.
 
 ## Rent instance
 
-You can rent an instance immediately by clicking on rent. There are a few technical details to keep in mind to ensure the model runs smoothly. For this example, I want to inference from and fine-tune a [Qwen/Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model, using [**unsloth**](https://unsloth.ai/). **unsloth** is a convenient Python library for fine-tuning models; it serves as a wrapper around the PEFT (parameter efficient fine-tuning) package, which is part of the PyTorch and HuggingFace universe.
+You can rent an instance immediately by clicking on rent. There are a few technical details to keep in mind to ensure the model runs smoothly. For this example, I want to inference from and fine-tune a [Qwen/Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) model, using [unsloth](https://unsloth.ai/). unsloth is a convenient Python library for fine-tuning models; it serves as a wrapper around the PEFT (parameter efficient fine-tuning) package, which is part of the PyTorch and HuggingFace universe.
 
 The instance from vast.ai should therefore have an NVIDIA GPU and a fitting Linux distribution.
 
