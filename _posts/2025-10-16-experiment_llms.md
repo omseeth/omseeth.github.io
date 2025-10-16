@@ -172,7 +172,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
     device_map = "auto", # Auto place model on GPU if available
 )
 
-prompt = "Explain what a high performance computer is."
+prompt = "Explain what a high performance cluster is."
 
 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 
