@@ -14,7 +14,7 @@ This tutorial explains how to run experiments with open-source foundation models
 
 After having created an account on vast.ai, charge your credit with 5€-10€. 
 
-{% include figure.liquid loading="eager" path="assets/img/experiment_llms/charge_credit.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 1:** Account page on vast.ai
+{% include figure.liquid loading="eager" path="assets/img/experiment_llms/charge_credit.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 1:** Account page on vast.ai
 
 ## Rent instance
 
@@ -32,7 +32,7 @@ I recommend the following specifications:
 
 Each instance can use a different template. For LLM experiments, it’s easiest to start with the PyTorch template, which comes with CUDA, cuDNN, and many essential libraries pre-installed. This template runs inside an unprivileged Docker container.
 
-{% include figure.liquid loading="eager" path="assets/img/experiment_llms/template.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 2:** Template on vast.ai
+{% include figure.liquid loading="eager" path="assets/img/experiment_llms/template.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 2:** Template on vast.ai
 
 A few tips for selecting the right instance:
 
@@ -76,11 +76,11 @@ cat vast_ai.pub
 
 and copy the publicly accessible content. We insert the content on our vast.ai account page and save it.
 
-{% include figure.liquid loading="eager" path="assets/img/experiment_llms/ssh_key.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 3:** Adding ssh key to vast.ai
+{% include figure.liquid loading="eager" path="assets/img/experiment_llms/ssh_key.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 3:** Adding ssh key to vast.ai
 
 Next, we navigate to our instance. I'm using the following for this example:
 
-{% include figure.liquid loading="eager" path="assets/img/experiment_llms/instance.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 4:** Instance on vast.ai
+{% include figure.liquid loading="eager" path="assets/img/experiment_llms/instance.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 4:** Instance on vast.ai
 
 If we click on the small key symbol (our ssh key should appear, if not we add the ssh key here again) and on `ADD SSH KEY` then the section `direct ssh connect` should appear. vast.ai will show us which port we can use to connect to the instance.
 
@@ -149,7 +149,7 @@ Host vast_ai_instance
 
 Next, we can open VS Code and try to connect to the remote host. The name from the config should appear as an option, when we click `Connect to Host...`.
 
-{% include figure.liquid loading="eager" path="assets/img/experiment_llms/vs_code.png" class="img-fluid mx-auto d-block" width="70%" %}**Fig. 6:** ssh to remote host with VS Code
+{% include figure.liquid loading="eager" path="assets/img/experiment_llms/vs_code.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 6:** ssh to remote host with VS Code
 
 ## Run python scripts
 
