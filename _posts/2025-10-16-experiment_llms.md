@@ -159,7 +159,7 @@ At this point, we can use VS Code to create new python scripts on our instance. 
 pip install --upgrade unsloth transformers accelerate bitsandbytes
 ```
 
-With these libraries installed, we can write a simple Python script (e.g., `test.py`) that automatically downloads the model and runs an inference on a prompt.
+With these libraries installed, we can write a simple Python script (e.g., `test.py`) that automatically downloads an LLM and runs an inference on a prompt.
 
 ```python
 from unsloth import FastLanguageModel
@@ -195,6 +195,8 @@ Simply, run the script in your mamba environment with:
 ```bash
 python3 test.py
 ```
+
+In my case, the model was saved under `/workspace/.hf_home/hub` from where we can also remove it, if we want to make space.
 
 ## Fine-tune model
 
