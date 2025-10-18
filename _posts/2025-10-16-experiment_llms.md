@@ -6,7 +6,7 @@ description: Tutorial on how to rent an external NVIDIA GPU to run experiments w
 tags: llms vlms vast.ai transformers machine learning neural nets unsloth.ai
 categories: 
 ---
-This tutorial explains how to run experiments with open-source foundation models (e.g.,[Qwen/Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)) with external NVIDIA GPUs. All you need is €5–10 and an account on [vast.ai](https://vast.ai/). Alternatively, you could use services like [runpod.io](https://www.runpod.io/), or [lambda.ai](https://lambda.ai/). In this tutorial, I’ll walk you through setting up a GPU-powered instance on vast.ai.
+This tutorial explains how to run experiments with open-source foundation models (e.g., [Qwen/Qwen2.5-7B-Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)) with external NVIDIA GPUs. All you need is €5–10 and an account on [vast.ai](https://vast.ai/). Alternatively, you could use services like [runpod.io](https://www.runpod.io/), or [lambda.ai](https://lambda.ai/). In this tutorial, I’ll walk you through setting up a GPU-powered instance on vast.ai.
 
 *Why choose this approach?* With a small investment, you can work directly with core LLM libraries and experiment with open-source models. For example, I own a MacBookAir; however, essential libraries such as unsloth don't support Apple chips, nor are many other libraries optimized for them. In my experience, Google Colab is less reliable when it comes to GPU availability (even for paid options). It’s also limited to notebooks, which restricts flexibility. Using a remote instance with GPUs is also helpful if you want to prepare your scripts before submitting heavy jobs on a high performance cluster. Finally, setting this up is a fun way to gain some hands-on ML Ops experience.
 
@@ -24,7 +24,7 @@ The instance from vast.ai should therefore have an NVIDIA GPU and a fitting Linu
 
 I recommend the following specifications:
 
-- **GPU**: RTX 3060, RTX A4000 or other RTX; if more compute is needed an A100. The GPUs should have more than >12GB
+- **GPU**: RTX 3060, RTX A4000 or other RTX; if more compute is needed an A100. The GPUs should have more than >16GB
 - **RAM**: Usually 2xVRAM is best, but at least 16GB should suffice
 - **HDD**: 100GB
 - **CPU**: whatever comes with the instance
@@ -82,9 +82,9 @@ Next, we navigate to our instance. I'm using the following for this example:
 
 {% include figure.liquid loading="eager" path="assets/img/experiment_llms/instance.png" class="img-fluid mx-auto d-block" width="85%" %}**Fig. 4:** Instance on vast.ai
 
-If we click on the small key symbol (our ssh key should appear, if not we add the ssh key here again) and on `ADD SSH KEY` then the section `direct ssh connect` should appear. vast.ai will show us which port we can use to connect to the instance.
+If we click on the small key symbol (our ssh key should appear, if not we add the ssh key here again and click on `ADD SSH KEY`) then the section `direct ssh connect` appears. vast.ai will show us which port we can use to connect to the instance.
 
-Copy the provided SSH command, add your key name, and run it in your terminal:
+Copy the provided SSH command from `direct ssh connect`, add your key name with the flag `-i`, and run it in your terminal:
 
 ```bash
 ssh -i ~/.ssh/vast_ai -p 10532 root@194.26.196.132 -L 8080:localhost:8080
