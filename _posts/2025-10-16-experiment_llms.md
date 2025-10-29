@@ -24,9 +24,9 @@ The instance from vast.ai should therefore have an NVIDIA GPU and a fitting Linu
 
 I recommend the following specifications:
 
-- **GPU**: RTX 3060, RTX A4000 or other RTX; if more compute is needed an A100. The GPUs should have more than >16GB
+- **GPU**: RTX 30XX, RTX A40XX or other RTX; if more compute is needed an A100. The GPUs should have more than >24GB (fine-tuning a 7B model is possible with unsloth; the transformers library would rather require 80GB for the same task)
 - **RAM**: Usually 2xVRAM is best, but at least 16GB should suffice
-- **HDD**: 100GB
+- **HDD**: 50-100GB
 - **CPU**: whatever comes with the instance
 - **Bandwith**: At least 100 Mb/s, since you’ll need to download large libraries and models.
 
@@ -37,7 +37,7 @@ Each instance can use a different template. For LLM experiments, it’s easiest 
 A few tips for selecting the right instance:
 
 - Check that the instance’s resources (CPUs, RAM) aren’t already heavily used. Some servers share hardware, and it’s possible to find instances on vast.ai where CPU cores are busy.
-- I've had problems with several instances; just delete them and search for a different one.
+- I've had problems with several instances (e.g., they might come with an older CUDA version); just delete them and search for a different one.
 - As soon as the instance is being stopped, the system continues to exist and vast.ai will charge some money everyday for storage costs (not much though).
 - Once you stop an instance, someone else can rent its GPU. You won’t be able to restart your instance until the other user finishes, which can take hours or even days.
 
