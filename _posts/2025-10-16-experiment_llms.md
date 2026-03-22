@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Run LLMs on an External NVIDIA GPU Without Local Hardware (Step-by-Step Guide)
+title: Run LLMs on an External NVIDIA GPU (Step-by-Step Guide)
 date: 2025-10-15 12:00:00
 description: Tutorial on how to rent an external NVIDIA GPU to run experiments with open-source models
 tags: llms vlms vast.ai transformers machine learning neural nets unsloth.ai
