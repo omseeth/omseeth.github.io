@@ -15,7 +15,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I am by training a philosopher, computer scientist, and linguist with a focus on NLP, ML, safety, and ethics. I hold a B.Sc. and an M.Sc. in Computational Linguistics and Computer Science, as well as a B.A. and an M.A. in Philosophy. I am currently pursuing a PhD in Computer Science under the supervision of [Paul Röttger](https://paulrottger.com/) at the [Hasso Plattner Institute](https://hpi.de/) in Germany.
+By training, I am a philosopher, computer scientist, and linguist with a focus on NLP, ML, safety, and ethics. I hold a B.Sc. and an M.Sc. in Computational Linguistics and Computer Science, as well as a B.A. and an M.A. in Philosophy. I am currently pursuing a PhD in Computer Science under the supervision of [Paul Röttger](https://paulrottger.com/) at the [Hasso Plattner Institute](https://hpi.de/) in Germany.
 
 My research will explore a range of topics, including AI agents, collusion, misalignment, cybersecurity, chain-of-thought and action monitoring, as well as model evaluation.
 
