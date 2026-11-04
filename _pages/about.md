@@ -17,8 +17,8 @@ social: true # includes social icons at the bottom of the page
 
 I am by training a philosopher, computer scientist, and linguist with a focus on NLP, ML, safety, and ethics. I provide consultancy services on matters pertaining to safety, ethics, and artificial intelligence.
 
-I hold a B.A. in Philosophy and a B.Sc. in Computational Linguistics, along with an M.A. in Philosophy. In addition to my work, I am pursuing a second master's degree (M.Sc.) in Computational Linguistics and Computer Science at Ludwig-Maximilians-Universität Munich (LMU). Currently, I'm writing my thesis at the chair of Data Analytics and Machine Learning at the Technical University of Munich (TUM).
+I hold a B.Sc. and an M.Sc. in Computational Linguistics and Computer Science, as well as a B.A. and an M.A. in Philosophy.  am currently pursuing a PhD in Computer Science under the supervision of [Paul Röttger](https://paulrottger.com/) at the [Hasso Plattner Institute](https://hpi.de/) in Germany.
 
-My German translation of the French title [*Le pouvoir de l’art*](https://editions-saintsimon.fr/livres/pouvoir-de-lart/) can be found here: [*Die Macht der Kunst*](https://www.merve.de/index.php/book/show/460).
+My research will explore a range of topics, including AI agents, collusion, misalignment, cybersecurity, chain-of-thought and action monitoring, as well as model evaluation.
 
-I serve as the editor of [dailogues.ai](https://www.dailogues.ai). Please feel free to get in touch if you're interested in collaborations.
+My translation of the French title [*Le pouvoir de l’art*](https://editions-saintsimon.fr/livres/pouvoir-de-lart/) can be found here: [*Die Macht der Kunst*](https://www.merve.de/index.php/book/show/460).
