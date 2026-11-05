@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://www.cis.uni-muenchen.de/'>University of Munich</a>  |  <a href='https://www.lumen-partners.com/'>Lumen Partners</a>
+subtitle:
 
 profile:
   align: right
